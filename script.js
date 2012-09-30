@@ -75,20 +75,17 @@ var response = {
     ]
 };
 
-function sortThreads(x,y) {
-	return x.posts.length - y.posts.length;
+var scraper = {
+	sortThread: function(x,y) {
+		return x.posts.length - y.posts.length;
+	},	
+
+	parseResponse: function(response) {
+		var i;
+		var length = response.threads.length
+		console.log(response.threads);
+		response.threads.sort(scraper.sortThreads);
+	}
 }
 
-function threadData(len, posts) {
-	this.len = len;
-	this.posts = posts;
-}
-
-function parseResponse(obj) {
-	var i;
-	var length = obj.threads.length
-	console.log(obj.threads);
-	obj.threads.sort(sortThreads);
-}
-
-parseResponse(response);
+scraper.parseResponse(response);
