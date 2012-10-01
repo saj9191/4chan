@@ -1,4 +1,4 @@
-var display = {
+var data = {
 	postNumberToDiv : [],
 
 	addThread: function(thread) {
