@@ -43,6 +43,7 @@ var dataHandler = {
 		this.md5 = post.md5;
 		this.fileSize = post.fsize;
 		this.replyTo = post.resto;
+		console.log(this.filename);
 	},
 
 	formatPost: function(postDiv, post) {
@@ -67,6 +68,22 @@ var dataHandler = {
 		var commentText = 'Comment:<br>' + post.comment;
 		commentDiv.innerHTML = commentText;
 		postDiv.appendChild(commentDiv);
+
+		if (post.timePlusNanoseconds != undefined) {
+			var imageSrc = dataHandler.getImageSrc(post);
+			postDiv.appendChild(imageSrc);
+		}
+	},
+
+	getImageSrc: function(post) {
+		var imageSrc = document.createElement("img");
+		var url = "https://images.4chan.org/mu/src/" + 
+			post.timePlusNanoseconds + post.ext;
+		console.log(url);
+		imageSrc.setAttribute('src', url);
+		imageSrc.setAttribute('width', post.width);
+		imageSrc.setAttribute('height', post.height);
+		return imageSrc;
 	},
 
 	// Find reply comments and make them
