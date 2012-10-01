@@ -1,4 +1,5 @@
 var display = {
+	postNumberToDiv : [],
 
 	addThread: function(thread) {
 		var contentDiv = document.getElementById('content');
@@ -15,9 +16,11 @@ var display = {
 			post = new this.post(thread.posts[i]);
 
 			this.formatPost(postDiv, post);
+			this.postNumberToDiv[post.postNumber] = postDiv;
 			threadDiv.appendChild(postDiv);
 		}
 		contentDiv.appendChild(threadDiv);
+		this.reorderPosts();
 	},
 
 	post: function(post) {
@@ -44,24 +47,54 @@ var display = {
 
 	formatPost: function(postDiv, post) {
 		var postNumberDiv = document.createElement('div');
-		var postNumberText = document.createTextNode('Post Number: ' + post.postNumber);
-		postNumberDiv.appendChild(postNumberText);
+		var postNumberText = 'Post Number: ' + post.postNumber;
+		postNumberDiv.innerHTML = postNumberText ;
 		postDiv.appendChild(postNumberDiv);
 
 		var usernameDiv = document.createElement('div');
-		var usernameText = document.createTextNode('Username: ' + post.username);
-		usernameDiv.appendChild(usernameText);
+		var usernameText = 'Username: ' + post.username;
+		usernameDiv.innerHTML = usernameText;
 		postDiv.appendChild(usernameDiv);
 
-		var subjectDiv = document.createElement('div');
-		var subjectText = document.createTextNode('Subject: ' + post.subject);
-		subjectDiv.appendChild(subjectText);
-		postDiv.appendChild(subjectDiv);
+		if (post.subject != undefined) {
+			var subjectDiv = document.createElement('div');
+			var subjectText = 'Subject: ' + post.subject;
+			subjectDiv.innerHTML = subjectText;
+			postDiv.appendChild(subjectDiv);
+		}
 
 		var commentDiv = document.createElement('div');
-		var commentText = 'Comment: ' + post.comment;
+		var commentText = 'Comment:<br>' + post.comment;
 		commentDiv.innerHTML = commentText;
 		postDiv.appendChild(commentDiv);
+	},
+
+	// Find reply comments and make them
+	// the children of the original comment.
+	reorderPosts: function() {
+		var replies = document.getElementsByClassName('quotelink');
+		var len = replies.length;
+		var parentDiv;
+		var postNumber;
+		var postDiv;
+		var i;
+		for (i = 0; i < len; i++) {
+			postNumber = this.getPostNumber(replies[i].innerHTML);
+			parentDiv = this.postNumberToDiv[postNumber];
+			// First parentNode: 'quotelink'
+			// Second parentNode: Comment div
+			// Third parentNode: Post div
+			postDiv = replies[i].parentNode.parentNode.parentNode;
+			if (parentDiv != undefined) {
+				parentDiv.appendChild(postDiv);
+			}
+		}
+	},
+
+	// Remove &gt;&gt; from post number and converts to float.
+	getPostNumber: function(postNumber) {
+		postNumber = postNumber.replace('&gt;&gt;', '');
+		return parseInt(postNumber);
 	}
 
 }
