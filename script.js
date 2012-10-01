@@ -79,6 +79,11 @@ var scraper = {
 	sortThread: function(x,y) {
 		return x.posts.length - y.posts.length;
 	},	
+ 
+	getThread: function(number) {
+		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
+		$.getJSON(url, null, scraper.parseResponse);
+	},
 
 	parseResponse: function(response) {
 		var i;
@@ -88,4 +93,4 @@ var scraper = {
 	}
 }
 
-scraper.parseResponse(response);
+scraper.getThread(1);
