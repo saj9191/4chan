@@ -82,14 +82,16 @@ var scraper = {
  
 	getThread: function(number) {
 		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
-		$.getJSON(url, null, scraper.parseResponse);
+		$.getJSON(url, null, this.parseResponse);
 	},
 
 	parseResponse: function(response) {
 		var i;
 		var length = response.threads.length
-		console.log(response.threads);
-		response.threads.sort(scraper.sortThreads);
+		response.threads.sort(this.sortThreads);
+		for (i = 0; i < length; i++) {
+			display.addThread(response.threads[i]);
+		}
 	}
 }
 
