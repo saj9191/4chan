@@ -80,8 +80,8 @@ var dataHandler = {
 		var url = "https://images.4chan.org/mu/src/" + 
 			post.timePlusNanoseconds + post.ext;
 		imageSrc.setAttribute('src', url);
-		imageSrc.setAttribute('width', post.width);
-		imageSrc.setAttribute('height', post.height);
+		imageSrc.setAttribute('width', post.thumbnailWidth);
+		imageSrc.setAttribute('height', post.thumbnailHeight);
 		return imageSrc;
 	},
 
@@ -90,8 +90,8 @@ var dataHandler = {
 		var url = "https://0.thumbs.4chan.org/mu/thumb/" + 
 			post.timePlusNanoseconds + ".jpg";
 		imageSrc.setAttribute('src', url);
-		imageSrc.setAttribute('width', post.width);
-		imageSrc.setAttribute('height', post.height);
+		imageSrc.setAttribute('width', post.thumbnailWidth);
+		imageSrc.setAttribute('height', post.thumbnailHeight);
 		return imageSrc;
 	},
 
