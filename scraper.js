@@ -26,4 +26,4 @@ var scraper = {
 	},
 }
 
-scraper.onTimer();
+scraper.onTimer(1);
