@@ -2,24 +2,23 @@ var dataHandler = {
 	postNumberToDiv : [],
 
 	addThread: function(thread) {
-		var contentDiv = document.getElementById('content');
 		var len = thread.posts.length;
-		var threadDiv = document.createElement('div');
+		var threadDiv = $('<div/>');
 		var postDiv;
 		var post;
 		var i;
 
-		threadDiv.className = "thread";
+		threadDiv.addClass('thread');
 		for (i = 0; i < len; i++) {
-			postDiv = document.createElement('div');
-			postDiv.className = "post";
+			postDiv = $('<div/>');
+			postDiv.addClass('post');
 			post = new this.post(thread.posts[i]);
 
 			this.formatPost(postDiv, post);
 			this.postNumberToDiv[post.postNumber] = postDiv;
-			threadDiv.appendChild(postDiv);
+			threadDiv.append(postDiv);
 		}
-		contentDiv.appendChild(threadDiv);
+		$('#content').append(threadDiv);
 		this.reorderPosts();
 	},
 
@@ -43,62 +42,59 @@ var dataHandler = {
 		this.md5 = post.md5;
 		this.fileSize = post.fsize;
 		this.replyTo = post.resto;
-		console.log(this.filename);
 	},
 
 	formatPost: function(postDiv, post) {
-		var postNumberDiv = document.createElement('div');
-		var postNumberText = 'Post Number: ' + post.postNumber;
-		postNumberDiv.innerHTML = postNumberText ;
-		postDiv.appendChild(postNumberDiv);
+		var postNumberDiv = $('<div/>');
+		postNumberDiv.html('Post Number: ' + post.postNumber);
+		postDiv.append(postNumberDiv);
 
-		var usernameDiv = document.createElement('div');
-		var usernameText = 'Username: ' + post.username;
-		usernameDiv.innerHTML = usernameText;
-		postDiv.appendChild(usernameDiv);
+		var usernameDiv = $('<div/>');
+		usernameDiv.html('Username: ' + post.username);
+		postDiv.append(usernameDiv);
 
 		if (post.subject != undefined) {
-			var subjectDiv = document.createElement('div');
-			var subjectText = 'Subject: ' + post.subject;
-			subjectDiv.innerHTML = subjectText;
-			postDiv.appendChild(subjectDiv);
+			var subjectDiv = $('<div/>');
+			subjectDiv.html('Subject: ' + post.subject);
+			postDiv.append(subjectDiv);
 		}
 
-		var commentDiv = document.createElement('div');
-		var commentText = 'Comment:<br>' + post.comment;
-		commentDiv.innerHTML = commentText;
-		postDiv.appendChild(commentDiv);
-		console.log(post.timePlusNanoseconds);
+		if (post.comment != undefined) {
+			var commentDiv = $('<div/>');
+			commentDiv.html('Comment:<br>' + post.comment);
+			postDiv.append(commentDiv);
+		}
+
 		if (post.timePlusNanoseconds != undefined) {
 			var imageSrc = dataHandler.getImageSrc(post);
-			postDiv.appendChild(imageSrc);
+			postDiv.append(imageSrc);
 		}
 	},
 
 	getImageSrc: function(post) {
-		var imageSrc = document.createElement("img");
-		var url = "https://images.4chan.org/mu/src/" + 
+		var imageSrc = $('<img/>');
+		var url = 'https://images.4chan.org/mu/src/' + 
 			post.timePlusNanoseconds + post.ext;
-		imageSrc.setAttribute('src', url);
-		imageSrc.setAttribute('width', post.thumbnailWidth);
-		imageSrc.setAttribute('height', post.thumbnailHeight);
+		imageSrc.attr('src', url);
+		imageSrc.attr('width', post.thumbnailWidth);
+		imageSrc.attr('height', post.thumbnailHeight);
 		return imageSrc;
 	},
 
 	getThumbNailSrc: function(post) {
-		var imageSrc = document.createElement("img");
-		var url = "https://0.thumbs.4chan.org/mu/thumb/" + 
-			post.timePlusNanoseconds + ".jpg";
-		imageSrc.setAttribute('src', url);
-		imageSrc.setAttribute('width', post.thumbnailWidth);
-		imageSrc.setAttribute('height', post.thumbnailHeight);
+		var imageSrc = document.createElement('img');
+		var url = 'https://0.thumbs.4chan.org/mu/thumb/' + 
+			post.timePlusNanoseconds + '.jpg';
+		imageSrc.attr('src', url);
+		imageSrc.attr('width', post.thumbnailWidth);
+		imageSrc.attr('height', post.thumbnailHeight);
 		return imageSrc;
 	},
 
 	// Find reply comments and make them
 	// the children of the original comment.
 	reorderPosts: function() {
-		var replies = document.getElementsByClassName('quotelink');
+		var replies = $('.quotelink');
 		var len = replies.length;
 		var parentDiv;
 		var postNumber;
@@ -113,7 +109,7 @@ var dataHandler = {
 				// Second parentNode: Comment div
 				// Third parentNode: Post div
 				postDiv = replies[i].parentNode.parentNode.parentNode;
-				parentDiv.appendChild(postDiv);
+				parentDiv.append(postDiv);
 			}
 		}
 	},
