@@ -1,5 +1,16 @@
 var dataHandler = {
 	postNumberToDiv : [],
+    
+    processThread : function(thread){
+        var len = thread.posts.length;
+        var i;
+        var post;
+
+        for (i = 0; i < len; i++) {
+            post = new this.post(thread.posts[i]);
+            this.extract_thread(post);
+        }
+    },
 
 	addThread: function(thread) {
 		var contentDiv = document.getElementById('content');
@@ -23,6 +34,7 @@ var dataHandler = {
 		this.reorderPosts();
 	},
 
+
 	post: function(post) {
 		this.postNumber = post.no;
 		this.sticky = post.sticky;
@@ -43,7 +55,6 @@ var dataHandler = {
 		this.md5 = post.md5;
 		this.fileSize = post.fsize;
 		this.replyTo = post.resto;
-		console.log(this.filename);
 	},
 
 	formatPost: function(postDiv, post) {
@@ -68,12 +79,30 @@ var dataHandler = {
 		var commentText = 'Comment:<br>' + post.comment;
 		commentDiv.innerHTML = commentText;
 		postDiv.appendChild(commentDiv);
-		console.log(post.timePlusNanoseconds);
 		if (post.timePlusNanoseconds != undefined) {
 			var imageSrc = dataHandler.getImageSrc(post);
 			postDiv.appendChild(imageSrc);
 		}
 	},
+    
+    extract_thread : function(post) {
+        var comment = post.comment;
+        var valid = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        var t_number = "";
+        if (comment) { 
+            if (comment.indexOf("#p") != -1) {
+                var index = comment.indexOf("#p");
+/*                while (parseInt(comment.substring(index-1,index))) {
+                    t_number += comment.substring(index-1, index);
+                    index -= 1; 
+                } */
+                t_number = parseInt(comment.substring(index-8, index));
+//                t_number = parseInt(t_number.split("").reverse().join(""));
+                scraper.thread_ids[t_number] = "thread_here!";
+            }
+        }
+    },
+    
 
 	getImageSrc: function(post) {
 		var imageSrc = document.createElement("img");
