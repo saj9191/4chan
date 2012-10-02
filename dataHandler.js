@@ -68,7 +68,7 @@ var dataHandler = {
 		var commentText = 'Comment:<br>' + post.comment;
 		commentDiv.innerHTML = commentText;
 		postDiv.appendChild(commentDiv);
-
+		console.log(post.timePlusNanoseconds);
 		if (post.timePlusNanoseconds != undefined) {
 			var imageSrc = dataHandler.getImageSrc(post);
 			postDiv.appendChild(imageSrc);
@@ -79,7 +79,16 @@ var dataHandler = {
 		var imageSrc = document.createElement("img");
 		var url = "https://images.4chan.org/mu/src/" + 
 			post.timePlusNanoseconds + post.ext;
-		console.log(url);
+		imageSrc.setAttribute('src', url);
+		imageSrc.setAttribute('width', post.width);
+		imageSrc.setAttribute('height', post.height);
+		return imageSrc;
+	},
+
+	getThumbNailSrc: function(post) {
+		var imageSrc = document.createElement("img");
+		var url = "https://0.thumbs.4chan.org/mu/thumb/" + 
+			post.timePlusNanoseconds + ".jpg";
 		imageSrc.setAttribute('src', url);
 		imageSrc.setAttribute('width', post.width);
 		imageSrc.setAttribute('height', post.height);
@@ -99,11 +108,11 @@ var dataHandler = {
 		for (i = 0; i < len; i++) {
 			postNumber = this.getPostNumber(replies[i].innerHTML);
 			parentDiv = this.postNumberToDiv[postNumber];
-			// First parentNode: 'quotelink'
-			// Second parentNode: Comment div
-			// Third parentNode: Post div
-			postDiv = replies[i].parentNode.parentNode.parentNode;
 			if (parentDiv != undefined) {
+				// First parentNode: 'quotelink'
+				// Second parentNode: Comment div
+				// Third parentNode: Post div
+				postDiv = replies[i].parentNode.parentNode.parentNode;
 				parentDiv.appendChild(postDiv);
 			}
 		}
