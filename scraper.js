@@ -4,6 +4,8 @@ var scraper = {
 
     thread_ids : {},
 
+    interesting_thread_ids : {},
+
 	sortThread: function(x,y) {
 		return x.posts.length - y.posts.length;
 	},	
@@ -11,7 +13,9 @@ var scraper = {
     getThread: function(number) {
         console.log("number", number);
         var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/res/" + number + ".json&jsonp=?";
-		$.getJSON(url, null, this.parseThread);
+		$.getJSON(url, null, function(response) {
+            thread_ids[number] = response;
+        }
     },
  
 	getPage: function(number) {
@@ -36,7 +40,20 @@ var scraper = {
         scraper.getArbitraryThread();
 	},
 
+    addInterestingThread: function() {
+        var the_thread;
+        for (var key in scraper.thread_ids) {
+            the_thread = scraper[key];
+            if (the_thread != "") {
+                if (the_thread.posts.length > 20) {
+                    interesting_thread_ids[key] = the_thread;
+                }
+            }
+        }
+    },
+
     getArbitraryThread: function() {
+        // Gets the last thread from the object
         var thread_num = 0;
         for (var key in scraper.thread_ids) {
             thread_num = key; 

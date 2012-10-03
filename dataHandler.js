@@ -34,7 +34,6 @@ var dataHandler = {
 		this.reorderPosts();
 	},
 
-
 	post: function(post) {
 		this.postNumber = post.no;
 		this.sticky = post.sticky;
@@ -98,7 +97,7 @@ var dataHandler = {
                 } */
                 t_number = parseInt(comment.substring(index-8, index));
 //                t_number = parseInt(t_number.split("").reverse().join(""));
-                scraper.thread_ids[t_number] = "thread_here!";
+                scraper.thread_ids[t_number] = "";
             }
         }
     },
