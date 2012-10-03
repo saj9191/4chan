@@ -19,7 +19,6 @@ var scraper = {
     },
  
 	getPage: function(number) {
-		console.log('getPage');
 		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, this.parsePage);
 	},
@@ -33,7 +32,6 @@ var scraper = {
 
 	parsePage: function(response) {
 		var i;
-		console.log('parsePage');
 		var length = response.threads.length;
 		response.threads.sort(this.sortThreads);
 		for (i = 0; i < length; i++) {
@@ -66,7 +64,7 @@ var scraper = {
     },
 
     onRun : function () {
-    	console.log('onRun');
+	    scraper.addEventListeners();
         scraper.getPage(1);
         setTimeout(scraper.onTimer, scraper.timeDelay);
     },
@@ -75,6 +73,23 @@ var scraper = {
         scraper.getArbitraryThread();
 		setTimeout(scraper.onTimer, scraper.timeDelay);
 	},
+
+	onButtonClick: function(e) {
+		if (e.target.className === 'section show') {
+			e.target.className = 'section';
+		} else {
+			e.target.className = 'section show';
+		}
+	},
+
+	addEventListeners: function() {
+		var sections = document.getElementsByClassName('section');
+		var length = sections.length;
+		for (i = 0; i < length; i++) {
+			var section = sections[i];
+			section.addEventListener('click', this.onButtonClick, false);
+		}
+	}
 }
 
 scraper.onRun();

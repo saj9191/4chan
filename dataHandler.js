@@ -5,14 +5,13 @@ var dataHandler = {
         var len = thread.posts.length;
         var i;
         var post;
+        this.addThread(thread);
+        // for (i = 0; i < len; i++) {
+        //     post = new this.post(thread.posts[i]);
+        //     console.log(post);
 
-        for (i = 0; i < len; i++) {
-        	console.log('processThread');
-        	addThread(thread);
-            /*post = new this.post(thread.posts[i]);
-            console.log(post);
-            this.formatPost(post);*/
-        }
+        //     this.extractThread(post);
+        // }
     },
 
 	addThread: function(thread) {
@@ -60,23 +59,29 @@ var dataHandler = {
 	},
 
 	formatPost: function(postDiv, post) {
-		console.log('here');
-		if (post.subject != undefined) {
-			var subjectDiv = $('<div/>');
-			subjectDiv.html('Subject: ' + post.subject);
-			subjectDiv.addClass('subject');
-			postDiv.append(subjectDiv);
-		}
-
-		var postNumberDiv = $('<div/>');
+	var postNumberDiv = $('<div/>');
 		postNumberDiv.html('Post Number: ' + post.postNumber);
 		postNumberDiv.addClass('postNumber');
 		postDiv.append(postNumberDiv);
+
+		var subjectDiv = $('<div/>');
+		if (post.subject != undefined) {
+			subjectDiv.html('Subject: ' + post.subject);
+		} else {
+			subjectDiv.html('Subject: No subject');
+		}
+		subjectDiv.addClass('subject');
+		postDiv.append(subjectDiv);
 
 		var usernameDiv = $('<div/>');
 		usernameDiv.html('Username: ' + post.username);
 		usernameDiv.addClass('username');
 		postDiv.append(usernameDiv);
+
+		if (post.timePlusNanoseconds != undefined) {
+			var imageSrc = dataHandler.getImageSrc(post);
+			postDiv.append(imageSrc);
+		}
 
 		if (post.comment != undefined) {
 			var commentDiv = $('<div/>');
@@ -84,14 +89,9 @@ var dataHandler = {
 			commentDiv.addClass('comment');
 			postDiv.append(commentDiv);
 		}
-		
-		if (post.timePlusNanoseconds != undefined) {
-			var imageSrc = dataHandler.getImageSrc(post);
-			postDiv.append(imageSrc);
-		}
 	},
     
-    extract_thread : function(post) {
+    extractThread : function(post) {
         var comment = post.comment;
         var valid = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
         var t_number = "";
@@ -104,7 +104,7 @@ var dataHandler = {
                 } */
                 t_number = parseInt(comment.substring(index-8, index));
 //                t_number = parseInt(t_number.split("").reverse().join(""));
-                scraper.thread_ids[t_number] = "";
+                scraper.thread_ids[t_number] = "thread_here!";
             }
         }
     },
@@ -136,7 +136,6 @@ var dataHandler = {
 	// the children of the original comment.
 	reorderPosts: function() {
 		var replies = $('.quotelink');
-		console.log('here');
 		var len = replies.length;
 		var parentDiv;
 		var postNumber;
@@ -151,6 +150,9 @@ var dataHandler = {
 				// Second parentNode: Comment div
 				// Third parentNode: Post div
 				postDiv = replies[i].parentNode.parentNode.parentNode;
+				jPostDiv = $(postDiv);
+				jPostDiv.find('.subject').hide();
+				jPostDiv.css('marginLeft', '10px');
 				parentDiv.append(postDiv);
 			}
 		}
