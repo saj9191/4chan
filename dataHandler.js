@@ -5,13 +5,12 @@ var dataHandler = {
         var len = thread.posts.length;
         var i;
         var post;
-        this.addThread(thread);
-        // for (i = 0; i < len; i++) {
-        //     post = new this.post(thread.posts[i]);
-        //     console.log(post);
+        //this.addThread(thread);
+         for (i = 0; i < len; i++) {
+             post = new this.post(thread.posts[i]);
 
-        //     this.extractThread(post);
-        // }
+             this.extractThread(post);
+         }
     },
 
 	addThread: function(thread) {
@@ -33,6 +32,7 @@ var dataHandler = {
 			threadDiv.append(postDiv);
 		}
 		$('#content').append(threadDiv);
+        console.log(threadDiv);
 		this.reorderPosts();
 	},
 
@@ -104,7 +104,7 @@ var dataHandler = {
                 } */
                 t_number = parseInt(comment.substring(index-8, index));
 //                t_number = parseInt(t_number.split("").reverse().join(""));
-                scraper.thread_ids[t_number] = "thread_here!";
+                scraper.thread_ids[t_number] = "";
             }
         }
     },
