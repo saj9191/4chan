@@ -1,7 +1,75 @@
+body {
+	font-family: sans-serif;
+	/*background-color: #876Ed7;*/
+}
+
+#header {
+	text-align: center;
+}
+
+#sections {
+	float: left;
+	clear: both;
+}
+
+#content {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.section {
+	margin-left: 20px;
+	margin-bottom: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #071871;
+	color: #7080D7;
+	box-shadow: 1px 1px 1px 1px #7080D7 inset;
+}
+
+.reply {
+	background-color: red;
+}
+
+.show {
+	background-color: #7080D7;
+	color: #071871;
+	box-shadow: 1px 1px 1px 1px #071871 inset;
+}
+
 .thread {
-	border: solid blue;
+	border: solid #071871;
+	width: 66%;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #4A60D7;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .post {
-	margin-left: 15px;
+	background-color: #7080D7;
+	margin-top: 15px;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+}
+
+/* To do: need to remove blank line*/
+.quotelink {
+	display: none;
+}
+
+.subject {
+	font-weight: bold;
+}
+
+.postNumber {
+	float: right;
+	clear: both;
 }
