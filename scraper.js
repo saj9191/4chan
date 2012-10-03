@@ -1,10 +1,17 @@
+var globals = {
+// Contains presets and user-defined globals
+    minPosts : 20,    
+    currentBoard : '/mu/',
+}
+
 var scraper = {
 	// Can't hit server too much.
 	timeDelay: 20*1000,
 
     thread_ids : {},
 
-    interesting_thread_ids : {},
+    followed_thread_ids : {},   
+    // Contains the thread_ids of interesting threads that are currently followed.
 
 	sortThread: function(x,y) {
 		return x.posts.length - y.posts.length;
@@ -12,10 +19,19 @@ var scraper = {
 
     getThread: function(number) {
         console.log("number", number);
-        var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/res/" + number + ".json&jsonp=?";
+        var url = "http://hkr.me:8001/?url=http://api.4chan.org" +
+globals.currentBoard + "res/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, function(response) {
-            thread_ids[number] = response;
-        }
+            scraper.thread_ids[number] = response;
+            console.log(response);
+            if (response.posts.length > globals.minPosts) {
+                // Map the key -> response in followed_thread_ids
+                scraper.followed_thread_ids[number] = response;
+                // Render the thread
+                dataHandler.addThread(response); 
+                console.log("added to datahandler");
+            }
+        });
     },
  
 	getPage: function(number) {
@@ -37,7 +53,8 @@ var scraper = {
 		for (i = 0; i < length; i++) {
 			dataHandler.processThread(response.threads[i]);
 		}
-        scraper.getArbitraryThread();
+        //scraper.getArbitraryThread();
+        scraper.fetchThreadJson();
 	},
 
     addInterestingThread: function() {
@@ -63,9 +80,15 @@ var scraper = {
         }
     },
 
+    fetchThreadJson: function() {
+        for (var key in scraper.thread_ids) {
+            scraper.getThread(key);
+        }
+    },
+
     onRun : function () {
         scraper.getPage(1);
-        setTimeout(scraper.onTimer, scraper.timeDelay);
+//        setTimeout(scraper.onTimer, scraper.timeDelay);
     },
 
 	onTimer: function() {
