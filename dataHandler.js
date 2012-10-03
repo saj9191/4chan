@@ -15,6 +15,7 @@ var dataHandler = {
 	addThread: function(thread) {
 		var len = thread.posts.length;
 		var threadDiv = $('<div/>');
+		threadDiv.addClass('thread');
 		var postDiv;
 		var post;
 		var i;
@@ -59,21 +60,25 @@ var dataHandler = {
 	formatPost: function(postDiv, post) {
 		var postNumberDiv = $('<div/>');
 		postNumberDiv.html('Post Number: ' + post.postNumber);
+		postNumberDiv.addClass('postNumber');
 		postDiv.append(postNumberDiv);
 
 		var usernameDiv = $('<div/>');
 		usernameDiv.html('Username: ' + post.username);
+		usernameDiv.addClass('username');
 		postDiv.append(usernameDiv);
 
 		if (post.subject != undefined) {
 			var subjectDiv = $('<div/>');
 			subjectDiv.html('Subject: ' + post.subject);
+			subjectDiv.addClass('subject');
 			postDiv.append(subjectDiv);
 		}
 
 		if (post.comment != undefined) {
 			var commentDiv = $('<div/>');
 			commentDiv.html('Comment:<br>' + post.comment);
+			commentDiv.addClass('comment');
 			postDiv.append(commentDiv);
 		}
 		
@@ -104,6 +109,7 @@ var dataHandler = {
 
 	getImageSrc: function(post) {
 		var imageSrc = $('<img/>');
+		imageSrc.addClass('image');
 		var url = 'https://images.4chan.org/mu/src/' + 
 			post.timePlusNanoseconds + post.ext;
 		imageSrc.attr('src', url);
@@ -112,6 +118,7 @@ var dataHandler = {
 		return imageSrc;
 	},
 
+	// Don't know if we're going to use this. 
 	getThumbNailSrc: function(post) {
 		var imageSrc = document.createElement('img');
 		var url = 'https://0.thumbs.4chan.org/mu/thumb/' + 
