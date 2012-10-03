@@ -6,13 +6,21 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
+		<div id = "header">Best of 4Chan</div>
 		<div>
-			<div id = "sections">
-				<div class = "section show">Music</div>
-				<div class = "section">Video Games</div>
+			<div id = "boards">
+				<form>
+					Board Options:</br>
+					<select name='boardOptions'>
+						<option value=''>None</option>
+						<option value='music'>Music</option>
+						<option value='videoGames'>Video Games</option>
+					</select>
+				</form>
 			</div>
-			<div id = "content">
+			<div id = 'content'>
 			</div>
+			<div id = 'theads'></div>
 			<script src="http://code.jquery.com/jquery-latest.js"></script>
 			<script type="text/javascript" src="scraper.js"></script>
 			<script type="text/javascript" src="dataHandler.js"></script>

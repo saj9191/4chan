@@ -7,11 +7,6 @@ body {
 	text-align: center;
 }
 
-#sections {
-	float: left;
-	clear: both;
-}
-
 #content {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -19,25 +14,14 @@ body {
 	margin-left: 5px;
 }
 
-.section {
-	margin-left: 20px;
-	margin-bottom: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	background-color: #071871;
-	color: #7080D7;
-	box-shadow: 1px 1px 1px 1px #7080D7 inset;
-}
-
-.show {
-	background-color: #7080D7;
-	color: #071871;
-	box-shadow: 1px 1px 1px 1px #071871 inset;
+#boards {
+	float: left;
+	clear: both;
+	margin-left: 10px;
 }
 
 .thread {
+	position: relative;
 	border: solid #071871;
 	width: 66%;
 	margin-right: auto;
@@ -59,6 +43,9 @@ body {
 
 
 .remove {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
 	margin-top: 20px;
 	font-size: small;
 }

@@ -14,6 +14,10 @@ var dataHandler = {
         // }
     },
 
+    onButtonClick: function(e) {
+    	$(e.target.parentNode).hide();
+    },
+
 	addThread: function(thread) {
 		var len = thread.posts.length;
 		var threadDiv = $('<div/>');
@@ -32,12 +36,14 @@ var dataHandler = {
 			this.formatPost(postDiv, post);
 			this.postNumberToDiv[post.postNumber] = postDiv;
 			threadDiv.append(postDiv);
-
-			removeDiv = $('<div/>');
-			removeDiv.html('Remove post');
-			removeDiv.addClass('remove');
-			threadDiv.append(removeDiv);
 		}
+		removeDiv = $('<div/>');
+		removeDiv.html('Remove thread');
+		removeDiv.addClass('remove');
+
+		removeDiv.click(this.onButtonClick);
+
+		threadDiv.append(removeDiv);
 		$('#content').append(threadDiv);
 		this.reorderPosts();
 	},
@@ -73,12 +79,10 @@ var dataHandler = {
 		var subjectDiv = $('<div/>');
 		if (post.subject != undefined) {
 			subjectDiv.html('Subject: ' + post.subject);
-		} else {
-			subjectDiv.html('Subject: No subject');
+			subjectDiv.addClass('subject');
+			postDiv.append(subjectDiv);
 		}
-		subjectDiv.addClass('subject');
-		postDiv.append(subjectDiv);
-
+		
 		var usernameDiv = $('<div/>');
 		usernameDiv.html('Username: ' + post.username);
 		usernameDiv.addClass('username');
