@@ -18,6 +18,7 @@ var dataHandler = {
 		var threadDiv = $('<div/>');
 		threadDiv.addClass('thread');
 		var postDiv;
+		var removeDiv;
 		var post;
 		var i;
 
@@ -30,6 +31,11 @@ var dataHandler = {
 			this.formatPost(postDiv, post);
 			this.postNumberToDiv[post.postNumber] = postDiv;
 			threadDiv.append(postDiv);
+
+			removeDiv = $('<div/>');
+			removeDiv.html('Remove post');
+			removeDiv.addClass('remove');
+			threadDiv.append(removeDiv);
 		}
 		$('#content').append(threadDiv);
         console.log(threadDiv);
@@ -59,7 +65,7 @@ var dataHandler = {
 	},
 
 	formatPost: function(postDiv, post) {
-	var postNumberDiv = $('<div/>');
+		var postNumberDiv = $('<div/>');
 		postNumberDiv.html('Post Number: ' + post.postNumber);
 		postNumberDiv.addClass('postNumber');
 		postDiv.append(postNumberDiv);
@@ -152,6 +158,8 @@ var dataHandler = {
 				postDiv = replies[i].parentNode.parentNode.parentNode;
 				jPostDiv = $(postDiv);
 				jPostDiv.find('.subject').hide();
+				// Remove 'Remove post' option on replies.
+				jPostDiv.find('.remove').remove();
 				jPostDiv.css('marginLeft', '10px');
 				parentDiv.append(postDiv);
 			}
