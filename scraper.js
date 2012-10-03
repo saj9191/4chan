@@ -52,7 +52,7 @@ var scraper = {
     },
 
 	onTimer: function() {
-        getArbitraryThread();
+        scraper.getArbitraryThread();
 		setTimeout(scraper.onTimer, scraper.timeDelay);
 	},
 }

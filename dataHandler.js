@@ -58,6 +58,13 @@ var dataHandler = {
 	},
 
 	formatPost: function(postDiv, post) {
+		if (post.subject != undefined) {
+			var subjectDiv = $('<div/>');
+			subjectDiv.html('Subject: ' + post.subject);
+			subjectDiv.addClass('subject');
+			postDiv.append(subjectDiv);
+		}
+
 		var postNumberDiv = $('<div/>');
 		postNumberDiv.html('Post Number: ' + post.postNumber);
 		postNumberDiv.addClass('postNumber');
@@ -67,13 +74,6 @@ var dataHandler = {
 		usernameDiv.html('Username: ' + post.username);
 		usernameDiv.addClass('username');
 		postDiv.append(usernameDiv);
-
-		if (post.subject != undefined) {
-			var subjectDiv = $('<div/>');
-			subjectDiv.html('Subject: ' + post.subject);
-			subjectDiv.addClass('subject');
-			postDiv.append(subjectDiv);
-		}
 
 		if (post.comment != undefined) {
 			var commentDiv = $('<div/>');
@@ -133,6 +133,7 @@ var dataHandler = {
 	// the children of the original comment.
 	reorderPosts: function() {
 		var replies = $('.quotelink');
+		console.log('here');
 		var len = replies.length;
 		var parentDiv;
 		var postNumber;
