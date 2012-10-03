@@ -4,6 +4,17 @@ var globals = {
     currentBoard : '/mu/',
 }
 
+var boards = {
+    '/mu/' : {
+        followed_thread_ids : {},
+        ignored_thread_ids : {},
+    },
+    '/v/' : {
+        followed_thread_ids : {},
+        ignored_thread_ids : {},
+    },
+}
+
 var scraper = {
 	// Can't hit server too much.
 	timeDelay: 20*1000,
