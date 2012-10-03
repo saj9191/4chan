@@ -1,34 +1,7 @@
-body {
-	font-family: sans-serif;
-	/*background-color: #876Ed7;*/
-}
-
 .thread {
 	border: solid blue;
-	width: 66%;
-	margin-right: auto;
-	margin-left: auto;
-	background-color: #4671D5;
 }
 
 .post {
 	margin-left: 15px;
-	background-color: #6C8CD5;
-	/*color: #FFAA00;*/
-	margin-top: 15px;
-	margin-right: 15px;
-}
-
-/* To do: need to remove blank line*/
-.quotelink {
-	display: none;
-}
-
-.subject {
-	font-weight: bold;
-}
-
-.postNumber {
-	float: right;
-	clear: both;
 }

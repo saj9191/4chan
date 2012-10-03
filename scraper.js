@@ -87,6 +87,7 @@ globals.currentBoard + "res/" + number + ".json&jsonp=?";
     },
 
     onRun : function () {
+	    scraper.addEventListeners();
         scraper.getPage(1);
 //        setTimeout(scraper.onTimer, scraper.timeDelay);
     },
@@ -95,6 +96,23 @@ globals.currentBoard + "res/" + number + ".json&jsonp=?";
         scraper.getArbitraryThread();
 		setTimeout(scraper.onTimer, scraper.timeDelay);
 	},
+
+	onButtonClick: function(e) {
+		if (e.target.className === 'section show') {
+			e.target.className = 'section';
+		} else {
+			e.target.className = 'section show';
+		}
+	},
+
+	addEventListeners: function() {
+		var sections = document.getElementsByClassName('section');
+		var length = sections.length;
+		for (i = 0; i < length; i++) {
+			var section = sections[i];
+			section.addEventListener('click', this.onButtonClick, false);
+		}
+	}
 }
 
 scraper.onRun();
