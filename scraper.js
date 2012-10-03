@@ -20,7 +20,7 @@ var scraper = {
     getThread: function(number) {
         console.log("number", number);
         var url = "http://hkr.me:8001/?url=http://api.4chan.org" +
-globals.currentBoard + "res/" + number + ".json&jsonp=?";
+		globals.currentBoard + "res/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, function(response) {
             scraper.thread_ids[number] = response;
             console.log(response);
@@ -87,7 +87,6 @@ globals.currentBoard + "res/" + number + ".json&jsonp=?";
     },
 
     onRun : function () {
-	    scraper.addEventListeners();
         scraper.getPage(1);
 //        setTimeout(scraper.onTimer, scraper.timeDelay);
     },
@@ -97,22 +96,14 @@ globals.currentBoard + "res/" + number + ".json&jsonp=?";
 		setTimeout(scraper.onTimer, scraper.timeDelay);
 	},
 
-	onButtonClick: function(e) {
-		if (e.target.className === 'section show') {
-			e.target.className = 'section';
-		} else {
-			e.target.className = 'section show';
-		}
-	},
-
-	addEventListeners: function() {
+	/*addEventListeners: function() {
 		var sections = document.getElementsByClassName('section');
 		var length = sections.length;
 		for (i = 0; i < length; i++) {
 			var section = sections[i];
 			section.addEventListener('click', this.onButtonClick, false);
 		}
-	}
+	}*/
 }
 
 scraper.onRun();
