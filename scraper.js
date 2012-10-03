@@ -14,11 +14,12 @@ var scraper = {
         console.log("number", number);
         var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/res/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, function(response) {
-            thread_ids[number] = response;
-        }
+            scraper.thread_ids[number] = response;
+        });
     },
  
 	getPage: function(number) {
+		console.log('getPage');
 		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, this.parsePage);
 	},
@@ -32,6 +33,7 @@ var scraper = {
 
 	parsePage: function(response) {
 		var i;
+		console.log('parsePage');
 		var length = response.threads.length;
 		response.threads.sort(this.sortThreads);
 		for (i = 0; i < length; i++) {
@@ -64,6 +66,7 @@ var scraper = {
     },
 
     onRun : function () {
+    	console.log('onRun');
         scraper.getPage(1);
         setTimeout(scraper.onTimer, scraper.timeDelay);
     },

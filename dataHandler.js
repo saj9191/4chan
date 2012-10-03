@@ -7,8 +7,11 @@ var dataHandler = {
         var post;
 
         for (i = 0; i < len; i++) {
-            post = new this.post(thread.posts[i]);
-            this.extract_thread(post);
+        	console.log('processThread');
+        	addThread(thread);
+            /*post = new this.post(thread.posts[i]);
+            console.log(post);
+            this.formatPost(post);*/
         }
     },
 
@@ -57,6 +60,7 @@ var dataHandler = {
 	},
 
 	formatPost: function(postDiv, post) {
+		console.log('here');
 		if (post.subject != undefined) {
 			var subjectDiv = $('<div/>');
 			subjectDiv.html('Subject: ' + post.subject);
