@@ -16,6 +16,7 @@ body {
     padding: 0px 0px 0px 30px;
     text-align: right;
     left : 0;
+    top : 0;
     color : white;
 }
 
@@ -35,14 +36,11 @@ body {
 }
 
 #boardSelect {
-    margin-top : 25px;
     margin-bottom : 15px;
     text-align : left;
 }
 
 #recentBoards{
-    margin-top : 25px;
-    margin-bottom : 15px;
 }
 
 #header {
@@ -102,6 +100,11 @@ body {
 /* To do: need to remove blank line*/
 .quotelink {
 	display: none;
+}
+
+.small-padding-top {
+    padding-top : 15px;
+    padding-bottom : 15px;
 }
 
 .subject {

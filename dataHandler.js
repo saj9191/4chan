@@ -131,7 +131,7 @@ var dataHandler = {
 
 	getImageSrc: function(post, usernameDiv) {
 		var imageSrc = new Image();
-		var url = 'https://images.4chan.org/mu/src/' + 
+		var url = 'https://images.4chan.org'+ globals.currentBoard + '/src/' + 
 			post.timePlusNanoseconds + post.ext;
 		imageSrc.src = url;
 		imageSrc.width = post.thumbnailWidth;
