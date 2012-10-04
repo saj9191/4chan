@@ -32,6 +32,7 @@ var scraper = {
         console.log("number", number);
         var url = "http://hkr.me:8001/?url=http://api.4chan.org" +
 		globals.currentBoard + "res/" + number + ".json&jsonp=?";
+
 		$.getJSON(url, null, function(response) {
             scraper.thread_ids[number] = response;
             console.log(response);
