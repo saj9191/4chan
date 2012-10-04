@@ -37,6 +37,7 @@ var scraper = {
             if (response.posts.length > globals.minPosts) {
                 // Map the key -> response in followed_thread_ids
                 scraper.followed_thread_ids[number] = response;
+                delete scraper.thread_ids[number];
                 // Render the thread
                 dataHandler.addThread(response); 
             }
@@ -62,7 +63,6 @@ var scraper = {
 		for (i = 0; i < length; i++) {
 			dataHandler.processThread(response.threads[i]);
 		}
-        //scraper.getArbitraryThread();
         scraper.fetchThreadJson();
 	},
 

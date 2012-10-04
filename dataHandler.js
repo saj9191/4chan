@@ -48,6 +48,10 @@ var dataHandler = {
 		this.reorderPosts();
 	},
 
+    thread: function(thread) {
+        this.posts = thread.posts;    
+    },
+
 	post: function(post) {
 		this.postNumber = post.no;
 		this.sticky = post.sticky;
