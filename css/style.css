@@ -66,6 +66,7 @@ body {
 .thread {
 	clear:both;
 	position: relative;
+	padding-top: 20px;
 	border: solid #D5D3D1;
 	width: 66%;
 	margin-right: auto;
@@ -94,10 +95,11 @@ body {
 }
 
 .remove {
+	clear: both;
 	position: absolute;
-	bottom: 5px;
+	top: 5px;
 	right: 5px;
-	margin-top: 20px;
+	margin-bottom: 20px;
 	font-size: small;
 }
 

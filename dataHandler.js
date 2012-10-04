@@ -17,18 +17,34 @@ var dataHandler = {
     },
 
     onRemoveClick: function(e) {
-    	$(e.target.parentNode).hide();
+    	var removeDiv = $(e.target);
+    	var removeId = removeDiv.attr('id');
+    	var id = removeId.replace('r', '');
+    	$('.sidebar #' + id).remove();
+    	scraper.removeThreadDiv();
     },
 
-	addThread: function(thread) {
+    addThreadToSideBar: function(number) {
+    	var thread = $('<div/>');
+        thread.html('Thread '+ number);
+        thread.css('marginLeft', '10px');
+        thread.attr('id', number);
+        thread.css('font-size', 'small');
+        thread.css('padding-top', '10px');
+        // Prevents cursor from changing when you
+        // hover overs div
+        thread.css('cursor', 'default');
+        $('#recentThreads').append(thread);
+        thread.click(scraper.onThreadClick);
+    },
+
+	addThread: function(thread, threadNumber) {
 		var len = thread.posts.length;
 		var threadDiv = $('<div/>');
-		threadDiv.addClass('thread');
 		var postDiv;
 		var removeDiv;
 		var post;
 		var i;
-
 		threadDiv.addClass('thread');
 		for (i = 0; i < len; i++) {
 			postDiv = $('<div/>');
@@ -42,10 +58,11 @@ var dataHandler = {
 		removeDiv = $('<div/>');
 		removeDiv.html('Remove thread');
 		removeDiv.addClass('remove');
+		removeDiv.attr('id', 'r' + threadNumber);
+		removeDiv.css('cursor', 'default');
+		removeDiv.click(dataHandler.onRemoveClick);
 
-		removeDiv.click(this.onRemoveClick);
-
-		threadDiv.append(removeDiv);
+		threadDiv.prepend(removeDiv);
 		$('#content').append(threadDiv);
 		this.reorderPosts();
 	},

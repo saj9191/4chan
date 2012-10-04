@@ -29,17 +29,15 @@ var scraper = {
 	},	
 
 	onThreadClick: function(e) {
-		console.log('onThreadClick');
-		scraper.hideThread();
+		scraper.removeThreadDiv();
 		var thread = $(e.target);
 		var threadNumber = thread.attr('id');
 		var response = scraper.followedThreadIds[threadNumber];
-		dataHandler.addThread(response);
+		dataHandler.addThread(response, threadNumber);
 	},
 
-	hideThread: function() {
+	removeThreadDiv: function() {
     	var content = $('#content');
-    	console.log(content.find('.thread'));
     	$('#content .thread').remove();
     	console.log(content.find('.thread'));
     },
@@ -56,15 +54,7 @@ var scraper = {
                 delete scraper.threadIds[number];
                 // Render the thread
                 //dataHandler.addThread(response); 
-                var thread = $('<div/>');
-		        thread.html('Thread '+ number);
-		        thread.css('marginLeft', '10px');
-		        thread.attr('id', number);
-		        thread.css('font-size', 'small');
-		        thread.css('padding-top', '10px');
-		        thread.css('cursor', 'default');
-		        $('#recentThreads').append(thread);
-		        thread.click(scraper.onThreadClick);
+                dataHandler.addThreadToSideBar(number);
             }
         });
     },
