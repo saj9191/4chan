@@ -6,12 +6,12 @@ var globals = {
 
 var boards = {
     '/mu/' : {
-        followed_thread_ids : {},
-        ignored_thread_ids : {},
+        followedThreadIds : {},
+        ignoredThreadIds : {},
     },
     '/v/' : {
-        followed_thread_ids : {},
-        ignored_thread_ids : {},
+        followedThreadIds : {},
+        ignoredThreadIds : {},
     },
 }
 
@@ -19,45 +19,66 @@ var scraper = {
 	// Can't hit server too much.
 	timeDelay: 20*1000,
 
-    thread_ids : {},
+    threadIds : {},
 
-    followed_thread_ids : {},   
-    // Contains the thread_ids of interesting threads that are currently followed.
+    followedThreadIds : {},   
+    // Contains the threadIds of interesting threads that are currently followed.
 
 	sortThread: function(x,y) {
 		return x.posts.length - y.posts.length;
 	},	
 
+	onThreadClick: function(e) {
+		console.log('onThreadClick');
+		scraper.hideThread();
+		var thread = $(e.target);
+		var threadNumber = thread.attr('id');
+		var response = scraper.followedThreadIds[threadNumber];
+		dataHandler.addThread(response);
+	},
+
+	hideThread: function() {
+    	var content = $('#content');
+    	console.log(content.find('.thread'));
+    	$('#content .thread').remove();
+    	console.log(content.find('.thread'));
+    },
+
     getThread: function(number) {
-    	console.log('getThread');
         var url = "http://hkr.me:8001/?url=http://api.4chan.org" +
 		globals.currentBoard + "res/" + number + ".json&jsonp=?";
 
 		$.getJSON(url, null, function(response) {
-            scraper.thread_ids[number] = response;
+            scraper.threadIds[number] = response;
             if (response.posts.length > globals.minPosts) {
-                // Map the key -> response in followed_thread_ids
-                scraper.followed_thread_ids[number] = response;
-                delete scraper.thread_ids[number];
+                // Map the key -> response in followedThreadIds
+                scraper.followedThreadIds[number] = response;
+                delete scraper.threadIds[number];
                 // Render the thread
-                dataHandler.addThread(response); 
-                console.log('getThread');
+                //dataHandler.addThread(response); 
+                var thread = $('<div/>');
+		        thread.html('Thread '+ number);
+		        thread.css('marginLeft', '10px');
+		        thread.attr('id', number);
+		        thread.css('font-size', 'small');
+		        thread.css('padding-top', '10px');
+		        thread.css('cursor', 'default');
+		        $('#recentThreads').append(thread);
+		        thread.click(scraper.onThreadClick);
             }
         });
     },
- 
-	getPage: function(number) {
-		console.log('getPage');
-		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
-		$.getJSON(url, null, this.parsePage);
-	},
 
-	parseThread: function(response) {
+    parseThread: function(response) {
 		var i;
 		var length = response.posts.length;
         console.log(response);
         dataHandler.addThread(response);
-        console.log('parseThread');
+	},
+ 
+	getPage: function(number) {
+		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
+		$.getJSON(url, null, this.parsePage);
 	},
 
 	parsePage: function(response) {
@@ -72,11 +93,11 @@ var scraper = {
 
     addInterestingThread: function() {
         var the_thread;
-        for (var key in scraper.thread_ids) {
+        for (var key in scraper.threadIds) {
             the_thread = scraper[key];
             if (the_thread != "") {
                 if (the_thread.posts.length > 20) {
-                    interesting_thread_ids[key] = the_thread;
+                    interesting_threadIds[key] = the_thread;
                 }
             }
         }
@@ -85,7 +106,7 @@ var scraper = {
     getArbitraryThread: function() {
         // Gets the last thread from the object
         var thread_num = 0;
-        for (var key in scraper.thread_ids) {
+        for (var key in scraper.threadIds) {
             thread_num = key; 
         }
         if (thread_num != 0) {
@@ -94,7 +115,7 @@ var scraper = {
     },
 
     fetchThreadJson: function() {
-        for (var key in scraper.thread_ids) {
+        for (var key in scraper.threadIds) {
             scraper.getThread(key);
         }
     },

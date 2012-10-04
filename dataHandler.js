@@ -12,9 +12,11 @@ var dataHandler = {
 
              this.extractThread(post);
          }
+
+         len = scraper.threadIds
     },
 
-    onButtonClick: function(e) {
+    onRemoveClick: function(e) {
     	$(e.target.parentNode).hide();
     },
 
@@ -41,12 +43,11 @@ var dataHandler = {
 		removeDiv.html('Remove thread');
 		removeDiv.addClass('remove');
 
-		removeDiv.click(this.onButtonClick);
+		removeDiv.click(this.onRemoveClick);
 
 		threadDiv.append(removeDiv);
 		$('#content').append(threadDiv);
 		this.reorderPosts();
-		console.log('Out of reordering');
 	},
 
     thread: function(thread) {
@@ -114,7 +115,7 @@ var dataHandler = {
     extractThread : function(post) {
         var comment = post.comment;
         var valid = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-        var t_number = "";
+        var tNumber = "";
         if (comment) { 
             if (comment.indexOf("#p") != -1) {
                 var index = comment.indexOf("#p");
@@ -122,9 +123,9 @@ var dataHandler = {
                     t_number += comment.substring(index-1, index);
                     index -= 1; 
                 } */
-                t_number = parseInt(comment.substring(index-8, index));
+                tNumber = parseInt(comment.substring(index-8, index));
 //                t_number = parseInt(t_number.split("").reverse().join(""));
-                scraper.thread_ids[t_number] = "";
+                scraper.threadIds[tNumber] = "";
             }
         }
     },
@@ -135,7 +136,6 @@ var dataHandler = {
     },
 
 	getImageSrc: function(post, usernameDiv) {
-		console.log('getImageSrc');
 		var imageSrc = new Image();
 		var url = 'https://images.4chan.org'+ globals.currentBoard + '/src/' + 
 			post.timePlusNanoseconds + post.ext;
@@ -152,7 +152,6 @@ var dataHandler = {
 	// Find reply comments and make them
 	// the children of the original comment.
 	reorderPosts: function() {
-		console.log('reorderPosts');
 		var replies = $('.quotelink');
 		var len = replies.length;
 		var parentDiv;
@@ -169,19 +168,12 @@ var dataHandler = {
 				// Second parentNode: Comment div
 				// Third parentNode: Post div
 				postDiv = replies[i].parentNode.parentNode.parentNode;
-				console.log('r ',replies[i]);
-				console.log('r ',replies[i].parentNode);
-				console.log('r ',replies[i].parentNode.parentNode);
-				console.log('r ',replies[i].parentNode.parentNode.parentNode);
 				jPostDiv = $(postDiv);
 				jPostDiv.addClass('reply');
 				jPostDiv.css('marginLeft', '10px');
-				console.log('parent ',parentDiv);
-				console.log('post ',postDiv);
 				parentDiv.append(postDiv);
 			}
 		}
-		console.log('reordering done');
 	},
 
 	// Remove &gt;&gt; from post number and converts to float.
