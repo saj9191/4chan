@@ -29,6 +29,7 @@ var scraper = {
 	},	
 
     getThread: function(number) {
+    	console.log('getThread');
         var url = "http://hkr.me:8001/?url=http://api.4chan.org" +
 		globals.currentBoard + "res/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, function(response) {
@@ -38,11 +39,13 @@ var scraper = {
                 scraper.followed_thread_ids[number] = response;
                 // Render the thread
                 dataHandler.addThread(response); 
+                console.log('getThread');
             }
         });
     },
  
 	getPage: function(number) {
+		console.log('getPage');
 		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, this.parsePage);
 	},
@@ -52,6 +55,7 @@ var scraper = {
 		var length = response.posts.length;
         console.log(response);
         dataHandler.addThread(response);
+        console.log('parseThread');
 	},
 
 	parsePage: function(response) {

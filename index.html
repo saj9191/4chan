@@ -6,12 +6,9 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<div id = "header">Best of 4Chan</div>
+		<div id = 'header'>Best of 4Chan</div>
 		<div>
-            <div class="sidebar">
-                STUFF IN THE SIDEEEBAR
-            </div>
-			<div id = "sections">
+            <div id='sidebar'>
 				<form>
 					Board Options:</br>
 					<select name='boardOptions'>
@@ -20,19 +17,20 @@
 						<option value='videoGames'>Video Games</option>
 					</select>
 				</form>
-			</div>
-			<div id = 'content'>
+            </div>
+			
+			<div id='content'>
 			</div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 			<script type="text/javascript" src="scraper.js"></script>
 			<script type="text/javascript" src="dataHandler.js"></script>
             <script type="text/javascript" src="jsticky.js"></script>
             <script>
-            $(document).ready(function() {
-                $('.sidebar').jsticky({
-                    marginTop:0,
-                }); 
-            });
+            // $(document).ready(function() {
+            //     $('.sidebar').jsticky({
+            //         marginTop:0,
+            //     }); 
+            // });
             </script>
 
 		</div>

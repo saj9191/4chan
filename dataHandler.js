@@ -46,6 +46,7 @@ var dataHandler = {
 		threadDiv.append(removeDiv);
 		$('#content').append(threadDiv);
 		this.reorderPosts();
+		console.log('Out of reordering');
 	},
 
 	post: function(post) {
@@ -71,22 +72,26 @@ var dataHandler = {
 	},
 
 	formatPost: function(postDiv, post) {
-		var postNumberDiv = $('<div/>');
-		postNumberDiv.html('Post Number: ' + post.postNumber);
-		postNumberDiv.addClass('postNumber');
-		postDiv.append(postNumberDiv);
-
-		var subjectDiv = $('<div/>');
+		if (post.postNumber != undefined) {
+			var postNumberDiv = $('<div/>');
+			postNumberDiv.html('Post Number: ' + post.postNumber);
+			postNumberDiv.addClass('postNumber');
+			postDiv.append(postNumberDiv);
+		}
+		
 		if (post.subject != undefined) {
+			var subjectDiv = $('<div/>');
 			subjectDiv.html('Subject: ' + post.subject);
 			subjectDiv.addClass('subject');
 			postDiv.append(subjectDiv);
 		}
 		
-		var usernameDiv = $('<div/>');
-		usernameDiv.html('Username: ' + post.username);
-		usernameDiv.addClass('username');
-		postDiv.append(usernameDiv);
+		if (post.username != undefined) {
+			var usernameDiv = $('<div/>');
+			usernameDiv.html('Username: ' + post.username);
+			usernameDiv.addClass('username');
+			postDiv.append(usernameDiv);
+		}
 
 		if (post.timePlusNanoseconds != undefined) {
 			var tempDiv = $('<div/>');
@@ -126,6 +131,7 @@ var dataHandler = {
     },
 
 	getImageSrc: function(post, usernameDiv) {
+		console.log('getImageSrc');
 		var imageSrc = new Image();
 		var url = 'https://images.4chan.org/mu/src/' + 
 			post.timePlusNanoseconds + post.ext;
@@ -139,23 +145,10 @@ var dataHandler = {
 		document.dispatchEvent(imageEvent);
 	},
 
-	// Don't know if we're going to use this. 
-	getThumbNailSrc: function(post) {
-		var imageSrc = document.createElement('img');
-		var url = 'https://0.thumbs.4chan.org/mu/thumb/' + 
-			post.timePlusNanoseconds + '.jpg';
-		imageSrc.attr('src', url);
-		imageSrc.attr('width', post.thumbnailWidth);
-		imageSrc.attr('height', post.thumbnailHeight);
-		imageSrc.onload = function () {
-
-		}
-		return imageSrc;
-	},
-
 	// Find reply comments and make them
 	// the children of the original comment.
 	reorderPosts: function() {
+		console.log('reorderPosts');
 		var replies = $('.quotelink');
 		var len = replies.length;
 		var parentDiv;
@@ -172,12 +165,19 @@ var dataHandler = {
 				// Second parentNode: Comment div
 				// Third parentNode: Post div
 				postDiv = replies[i].parentNode.parentNode.parentNode;
+				console.log('r ',replies[i]);
+				console.log('r ',replies[i].parentNode);
+				console.log('r ',replies[i].parentNode.parentNode);
+				console.log('r ',replies[i].parentNode.parentNode.parentNode);
 				jPostDiv = $(postDiv);
 				jPostDiv.addClass('reply');
 				jPostDiv.css('marginLeft', '10px');
+				console.log('parent ',parentDiv);
+				console.log('post ',postDiv);
 				parentDiv.append(postDiv);
 			}
 		}
+		console.log('reordering done');
 	},
 
 	// Remove &gt;&gt; from post number and converts to float.
