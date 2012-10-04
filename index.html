@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Best of 4Chan</title>
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
 		<div id = 'header'>Best of 4Chan</div>
 		<div>
-            <div id='sidebar'>
-				<form>
-					Board Options:</br>
-					<select name='boardOptions'>
-						<option value=''>None</option>
-						<option value='music'>Music</option>
-						<option value='videoGames'>Video Games</option>
-					</select>
-				</form>
-            </div>
-			
-			<div id='content'>
+	        <div class="sidebar">
+	            <div id="logo-text">
+	                quick+chan 
+	            </div>
+	        	<div id = "sections">
+	                <div class="dashed-wrapper">
+	                    <div class="small-padding-top">
+	                        Recent Boards:
+	                    </div>
+	                     <div id="recentBoards">
+	                    </div>
+	                   
+	                </div>
+	                <div class="dashed-wrapper">
+	                    <div style="padding-top:15px; padding-bottom:5px;">
+	                    All Boards: 
+	                    </div>
+	                    <select id="boardSelect">
+	                        <option value='Music'>Music</option>
+	                        <option value='VideoGames'>Video Games</option>
+	                    </select>
+	                </div>
+	                <div class="dashed-wrapper">
+	                    <div class="small-padding-top">
+	                    Recent Threads:
+	                    </div> 
+	                </div>
+	            </div>
+	            <div id="bubblegirl">
+	                <img src="images/bubblegirl.png" alt="bubblegirl" width="160" style="position : absolute; bottom : 0; left: 0;">
+	            </div>
+	        </div>
+	        <div id = 'content'>
 			</div>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-			<script type="text/javascript" src="scraper.js"></script>
-			<script type="text/javascript" src="dataHandler.js"></script>
-            <script type="text/javascript" src="jsticky.js"></script>
-            <script>
-            // $(document).ready(function() {
-            //     $('.sidebar').jsticky({
-            //         marginTop:0,
-            //     }); 
-            // });
-            </script>
-
-		</div>
+		<div>
+				
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="scraper.js"></script>
+		<script type="text/javascript" src="dataHandler.js"></script>
+        <script type="text/javascript" src="jsticky.js"></script>
+        <script>
+        // $(document).ready(function() {
+        //     $('.sidebar').jsticky({
+        //         marginTop:0,
+        //     }); 
+        // });
+        </script>
 	</body>
 </html>

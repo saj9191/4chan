@@ -49,6 +49,10 @@ var dataHandler = {
 		console.log('Out of reordering');
 	},
 
+    thread: function(thread) {
+        this.posts = thread.posts;    
+    },
+
 	post: function(post) {
 		this.postNumber = post.no;
 		this.sticky = post.sticky;
@@ -133,7 +137,7 @@ var dataHandler = {
 	getImageSrc: function(post, usernameDiv) {
 		console.log('getImageSrc');
 		var imageSrc = new Image();
-		var url = 'https://images.4chan.org/mu/src/' + 
+		var url = 'https://images.4chan.org'+ globals.currentBoard + '/src/' + 
 			post.timePlusNanoseconds + post.ext;
 		imageSrc.src = url;
 		imageSrc.width = post.thumbnailWidth;

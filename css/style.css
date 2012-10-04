@@ -1,6 +1,46 @@
 body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
 	font-family: sans-serif;
 	/*background-color: #876Ed7;*/
+    background: url("../images/bg3.png") repeat left top #D8D4CC;
+}
+
+.sidebar {
+    position: fixed;
+    background-color : #282827;
+/*    background-color: #00A0C6; */
+    z-index: 100;
+    width: 180px;
+    height: 100%;
+    padding: 0px 0px 0px 30px;
+    text-align: right;
+    left : 0;
+    top : 0;
+    color : white;
+}
+
+#logo-text {
+    margin-top : 25px;
+    margin-bottom : 15px;
+    height : 40px;
+    text-align : left;
+    font-size : 20px;
+}
+
+.dashed-wrapper {
+    margin-right : 30px;
+    display : block;
+    border-top : 1px dashed #DCD8CF;
+    text-align : left;
+}
+
+#boardSelect {
+    margin-bottom : 15px;
+    text-align : left;
+}
+
+#recentBoards{
 }
 
 #header {
@@ -26,16 +66,17 @@ body {
 .thread {
 	clear:both;
 	position: relative;
-	border: solid #071871;
+	border: solid #D5D3D1;
 	width: 66%;
 	margin-right: auto;
-	background-color: #4A60D7;
+	margin-left: auto;
+	background-color: #F4F2E7;
 	padding-left: 15px;
 	padding-right: 15px;
 }
 
 .post {
-	background-color: #7080D7;
+	background-color: #50514B;
 	margin-top: 10px;
 	margin-bottom: 30px;
 	padding-left: 5px;
@@ -45,8 +86,11 @@ body {
 }
 
 .reply {
-	background-color: #62B1D0;
 	margin-bottom: 10px;
+    display : block;
+    border-top : 1px dashed #DCD8CF;
+    text-align : left;
+
 }
 
 .remove {
@@ -60,6 +104,11 @@ body {
 /* To do: need to remove blank line*/
 .quotelink {
 	display: none;
+}
+
+.small-padding-top {
+    padding-top : 15px;
+    padding-bottom : 15px;
 }
 
 .subject {
