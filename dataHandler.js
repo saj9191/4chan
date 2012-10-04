@@ -1,5 +1,6 @@
 var dataHandler = {
 	postNumberToDiv : [],
+	imagesToLoad: [],
     
     processThread : function(thread){
         var len = thread.posts.length;
@@ -44,7 +45,6 @@ var dataHandler = {
 
 		threadDiv.append(removeDiv);
 		$('#content').append(threadDiv);
-        console.log(threadDiv);
 		this.reorderPosts();
 	},
 
@@ -89,8 +89,9 @@ var dataHandler = {
 		postDiv.append(usernameDiv);
 
 		if (post.timePlusNanoseconds != undefined) {
-			var imageSrc = dataHandler.getImageSrc(post);
-			postDiv.append(imageSrc);
+			var tempDiv = $('<div/>');
+			var imageSrc = dataHandler.getImageSrc(post, usernameDiv);
+			//postDiv.append(imageSrc);
 		}
 
 		if (post.comment != undefined) {
@@ -118,17 +119,24 @@ var dataHandler = {
             }
         }
     },
-    
 
-	getImageSrc: function(post) {
-		var imageSrc = $('<img/>');
-		imageSrc.addClass('image');
+    imageData: function(usernameDiv, imageSrc) {
+    	this.username = usernameDiv;
+    	this.imageSrc = imageSrc;
+    },
+
+	getImageSrc: function(post, usernameDiv) {
+		var imageSrc = new Image();
 		var url = 'https://images.4chan.org/mu/src/' + 
 			post.timePlusNanoseconds + post.ext;
-		imageSrc.attr('src', url);
-		imageSrc.attr('width', post.thumbnailWidth);
-		imageSrc.attr('height', post.thumbnailHeight);
-		return imageSrc;
+		imageSrc.src = url;
+		imageSrc.width = post.thumbnailWidth;
+		imageSrc.height = post.thumbnailHeight;
+
+		this.imagesToLoad.push(new this.imageData(usernameDiv, imageSrc));
+
+		var imageEvent = new CustomEvent('imageLoad', {});
+		document.dispatchEvent(imageEvent);
 	},
 
 	// Don't know if we're going to use this. 
@@ -139,6 +147,9 @@ var dataHandler = {
 		imageSrc.attr('src', url);
 		imageSrc.attr('width', post.thumbnailWidth);
 		imageSrc.attr('height', post.thumbnailHeight);
+		imageSrc.onload = function () {
+
+		}
 		return imageSrc;
 	},
 
@@ -153,7 +164,8 @@ var dataHandler = {
 		var reply;
 		var i;
 		for (i = 0; i < len; i++) {
-			postNumber = this.getPostNumber(replies[i].innerHTML);
+			reply = $(replies[i]);
+			postNumber = this.getPostNumber(reply.html());
 			parentDiv = this.postNumberToDiv[postNumber];
 			if (parentDiv != undefined) {
 				// First parentNode: 'quotelink'
@@ -161,9 +173,7 @@ var dataHandler = {
 				// Third parentNode: Post div
 				postDiv = replies[i].parentNode.parentNode.parentNode;
 				jPostDiv = $(postDiv);
-				jPostDiv.find('.subject').hide();
-				// Remove 'Remove post' option on replies.
-				jPostDiv.find('.remove').remove();
+				jPostDiv.addClass('reply');
 				jPostDiv.css('marginLeft', '10px');
 				parentDiv.append(postDiv);
 			}
