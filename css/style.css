@@ -5,27 +5,30 @@ body {
 
 #header {
 	text-align: center;
+	font-size: xx-large;
+	margin-top: 10px;
 }
 
 #content {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	margin-right: 5px;
-	margin-left: 5px;
 }
 
-#boards {
+#sidebar {
 	float: left;
 	clear: both;
-	margin-left: 10px;
+	width: 33%;
+	padding-right: 10px;
+	margin-right: 10px;
 }
 
 .thread {
+	clear:both;
 	position: relative;
 	border: solid #071871;
 	width: 66%;
 	margin-right: auto;
-	margin-left: auto;
 	background-color: #4A60D7;
 	padding-left: 15px;
 	padding-right: 15px;
@@ -65,6 +68,5 @@ body {
 
 .postNumber {
 	float: right;
-	clear: both;
 }
 
