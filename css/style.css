@@ -74,7 +74,10 @@ body {
 	background-color: #F4F2E7;
 	padding-left: 15px;
 	padding-right: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
+
 
 .post {
 	background-color: #50514b;
@@ -84,6 +87,8 @@ body {
 	padding-right: 5px;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .reply {
@@ -98,7 +103,7 @@ body {
 	clear: both;
 	position: absolute;
 	top: 5px;
-	right: 5px;
+	right: 10px;
 	margin-bottom: 20px;
 	font-size: small;
 }
@@ -119,5 +124,26 @@ body {
 
 .postNumber {
 	float: right;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.username {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+img {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.comment {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#warning {
+	text-align: center;
 }
 
