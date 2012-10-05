@@ -34,9 +34,7 @@ var scraper = {
     getThread: function(number) {
         var url = "http://hkr.me:8001/?url=http://api.4chan.org/" +
 		boardHandler.currentBoard + "/res/" + number + ".json&jsonp=?";
-		console.log('url ', url);
 		$.getJSON(url, null, function(response) {
-			console.log('response ', response);
             scraper.threadIds[number] = response;
             if (response.posts.length > globals.minPosts) {
                 // Map the key -> response in followedThreadIds
@@ -52,7 +50,6 @@ var scraper = {
     parseThread: function(response) {
 		var i;
 		var length = response.posts.length;
-        console.log(response);
         dataHandler.addThread(response);
 	},
  
@@ -64,7 +61,6 @@ var scraper = {
 
 	parsePage: function(response) {
 		var i;
-		console.log('res', response);
 		var length = response.threads.length;
 		response.threads.sort(this.sortThreads);
 		for (i = 0; i < length; i++) {
@@ -105,7 +101,6 @@ var scraper = {
     onRun : function () {
     	var index = 0;
     	$('select').change(boardHandler.changeBoard);
-
     	var onload = function(e) {
     		var data = dataHandler.imagesToLoad[index];
     		console.log('here', data.imageSrc);
@@ -118,7 +113,6 @@ var scraper = {
     		index++;
     	}
     	document.addEventListener('imageLoad', onload);
-        //scraper.getPage(1);
 //        setTimeout(scraper.onTimer, scraper.timeDelay);
     },
 

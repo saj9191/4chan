@@ -6,7 +6,6 @@ var dataHandler = {
         var len = thread.posts.length;
         var i;
         var post;
-        console.log('process',scraper.threadIds);
         //this.addThread(thread);
 	    for (i = 0; i < len; i++) {
 	        post = new this.post(thread.posts[i]);
@@ -138,14 +137,13 @@ var dataHandler = {
 	getImageSrc: function(post, usernameDiv) {
 		console.log('imageSrc');
 		var imageSrc = new Image();
-		var url = 'https://images.4chan.org'+ globals.currentBoard + '/src/' + 
+		var url = 'https://images.4chan.org/'+ boardHandler.currentBoard + '/src/' + 
 			post.timePlusNanoseconds + post.ext;
 		imageSrc.src = url;
 		imageSrc.width = post.thumbnailWidth;
 		imageSrc.height = post.thumbnailHeight;
 
 		dataHandler.imagesToLoad.push(new this.imageData(usernameDiv, imageSrc));
-		console.log(dataHandler.imagesToLoad);
 		var imageEvent = new CustomEvent('imageLoad', {});
 		document.dispatchEvent(imageEvent);
 	},
