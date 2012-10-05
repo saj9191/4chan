@@ -6,14 +6,12 @@ var dataHandler = {
         var len = thread.posts.length;
         var i;
         var post;
+        console.log('process',scraper.threadIds);
         //this.addThread(thread);
-         for (i = 0; i < len; i++) {
-             post = new this.post(thread.posts[i]);
-
-             this.extractThread(post);
-         }
-
-         len = scraper.threadIds
+	    for (i = 0; i < len; i++) {
+	        post = new this.post(thread.posts[i]);
+	        this.extractThread(post);
+	    }
     },
 
     onRemoveClick: function(e) {
@@ -22,20 +20,11 @@ var dataHandler = {
     	var id = removeId.replace('r', '');
     	$('.sidebar #' + id).remove();
     	scraper.removeThreadDiv();
-    },
+    	// Remove from following threads and
+    	// put into non-following threads
+    	scraper.ignoredThreadIds = scraper.followedThreadIds;
+    	delete scraper.followedThreadIds[id];
 
-    addThreadToSideBar: function(number) {
-    	var thread = $('<div/>');
-        thread.html('Thread '+ number);
-        thread.css('marginLeft', '10px');
-        thread.attr('id', number);
-        thread.css('font-size', 'small');
-        thread.css('padding-top', '10px');
-        // Prevents cursor from changing when you
-        // hover overs div
-        thread.css('cursor', 'default');
-        $('#recentThreads').append(thread);
-        thread.click(scraper.onThreadClick);
     },
 
 	addThread: function(thread, threadNumber) {
@@ -114,7 +103,6 @@ var dataHandler = {
 			usernameDiv.addClass('username');
 			postDiv.append(usernameDiv);
 		}
-
 		if (post.timePlusNanoseconds != undefined) {
 			var tempDiv = $('<div/>');
 			var imageSrc = dataHandler.getImageSrc(post, usernameDiv);
@@ -135,13 +123,8 @@ var dataHandler = {
         var tNumber = "";
         if (comment) { 
             if (comment.indexOf("#p") != -1) {
-                var index = comment.indexOf("#p");
-/*                while (parseInt(comment.substring(index-1,index))) {
-                    t_number += comment.substring(index-1, index);
-                    index -= 1; 
-                } */
-                tNumber = parseInt(comment.substring(index-8, index));
-//                t_number = parseInt(t_number.split("").reverse().join(""));
+                threadNumber = comment.match('[0-9]*#p')[0];
+                tNumber = threadNumber.replace('#p', '');
                 scraper.threadIds[tNumber] = "";
             }
         }
@@ -153,6 +136,7 @@ var dataHandler = {
     },
 
 	getImageSrc: function(post, usernameDiv) {
+		console.log('imageSrc');
 		var imageSrc = new Image();
 		var url = 'https://images.4chan.org'+ globals.currentBoard + '/src/' + 
 			post.timePlusNanoseconds + post.ext;
@@ -160,8 +144,8 @@ var dataHandler = {
 		imageSrc.width = post.thumbnailWidth;
 		imageSrc.height = post.thumbnailHeight;
 
-		this.imagesToLoad.push(new this.imageData(usernameDiv, imageSrc));
-
+		dataHandler.imagesToLoad.push(new this.imageData(usernameDiv, imageSrc));
+		console.log(dataHandler.imagesToLoad);
 		var imageEvent = new CustomEvent('imageLoad', {});
 		document.dispatchEvent(imageEvent);
 	},

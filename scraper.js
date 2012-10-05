@@ -1,18 +1,6 @@
 var globals = {
 // Contains presets and user-defined globals
-    minPosts : 20,    
-    currentBoard : '/mu/',
-}
-
-var boards = {
-    '/mu/' : {
-        followedThreadIds : {},
-        ignoredThreadIds : {},
-    },
-    '/v/' : {
-        followedThreadIds : {},
-        ignoredThreadIds : {},
-    },
+    minPosts : 20
 }
 
 var scraper = {
@@ -21,8 +9,9 @@ var scraper = {
 
     threadIds : {},
 
-    followedThreadIds : {},   
     // Contains the threadIds of interesting threads that are currently followed.
+    followedThreadIds : {},   
+    ignoredThreadIds : {},
 
 	sortThread: function(x,y) {
 		return x.posts.length - y.posts.length;
@@ -43,10 +32,11 @@ var scraper = {
     },
 
     getThread: function(number) {
-        var url = "http://hkr.me:8001/?url=http://api.4chan.org" +
-		globals.currentBoard + "res/" + number + ".json&jsonp=?";
-
+        var url = "http://hkr.me:8001/?url=http://api.4chan.org/" +
+		boardHandler.currentBoard + "/res/" + number + ".json&jsonp=?";
+		console.log('url ', url);
 		$.getJSON(url, null, function(response) {
+			console.log('response ', response);
             scraper.threadIds[number] = response;
             if (response.posts.length > globals.minPosts) {
                 // Map the key -> response in followedThreadIds
@@ -54,7 +44,7 @@ var scraper = {
                 delete scraper.threadIds[number];
                 // Render the thread
                 //dataHandler.addThread(response); 
-                dataHandler.addThreadToSideBar(number);
+                boardHandler.addThreadToSideBar(number);
             }
         });
     },
@@ -67,12 +57,14 @@ var scraper = {
 	},
  
 	getPage: function(number) {
-		var url = "http://hkr.me:8001/?url=http://api.4chan.org/mu/" + number + ".json&jsonp=?";
+		var url = "http://hkr.me:8001/?url=http://api.4chan.org/" + 
+		boardHandler.currentBoard + "/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, this.parsePage);
 	},
 
 	parsePage: function(response) {
 		var i;
+		console.log('res', response);
 		var length = response.threads.length;
 		response.threads.sort(this.sortThreads);
 		for (i = 0; i < length; i++) {
@@ -112,15 +104,21 @@ var scraper = {
 
     onRun : function () {
     	var index = 0;
+    	$('select').change(boardHandler.changeBoard);
+
     	var onload = function(e) {
     		var data = dataHandler.imagesToLoad[index];
+    		console.log('here', data.imageSrc);
     		data.imageSrc.onload = function() {
+    			console.log('onload');
+    			console.log(data.username);
+    			console.log(data.imageSrc);
 	    		$(data.username).after(data.imageSrc);
 	    	}
     		index++;
     	}
     	document.addEventListener('imageLoad', onload);
-        scraper.getPage(1);
+        //scraper.getPage(1);
 //        setTimeout(scraper.onTimer, scraper.timeDelay);
     },
 
