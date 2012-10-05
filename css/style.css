@@ -67,7 +67,6 @@ body {
 	clear:both;
 	position: relative;
 	padding-top: 20px;
-	border: solid #D5D3D1;
 	width: 66%;
 	margin-right: auto;
 	margin-left: auto;
@@ -78,9 +77,12 @@ body {
 	border-radius: 15px;
 }
 
+.thread>.post {
+	border: solid #282827;
+}
+
 
 .post {
-	background-color: #50514b;
 	margin-top: 10px;
 	margin-bottom: 30px;
 	padding-left: 5px;
@@ -94,7 +96,7 @@ body {
 .reply {
 	margin-bottom: 10px;
     display : block;
-    border-top : 1px dashed #DCD8CF;
+    border-top : 1px dashed #282827;
     text-align : left;
 
 }
