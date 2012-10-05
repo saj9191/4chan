@@ -3,7 +3,9 @@ body {
     font-weight: 300;
 	font-family: sans-serif;
 	/*background-color: #876Ed7;*/
-    background: url("../images/bg3.png") repeat left top #D8D4CC;
+/*    background: url("../images/bg3.png") repeat left top #D8D4CC; */
+/*    background-image : url("../images/hexabump.png"); */
+    background-image : url("../images/norwegian_rose.png");
 }
 
 .sidebar {
@@ -70,7 +72,7 @@ body {
 	width: 66%;
 	margin-right: auto;
 	margin-left: auto;
-	background-color: #F4F2E7;
+	background-color: #F6F6E8;
 	padding-left: 15px;
 	padding-right: 15px;
 	-moz-border-radius: 15px;
@@ -78,7 +80,8 @@ body {
 }
 
 .thread>.post {
-	border: solid #282827;
+	border: solid #383127;
+    border-width : 1px;
 }
 
 
