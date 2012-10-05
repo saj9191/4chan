@@ -110,10 +110,39 @@ var scraper = {
     onRun : function () {
     	var index = 0;
     	$('select').change(boardHandler.changeBoard);
+        $('body').click(function(e) {
+            if (e.target.className == "thread-image") {
+                console.log("thread image clicked");
+                e.preventDefault();
+                var image_src = $(e.target).attr("src");
+                // Code that makes the lightbox appear
+                if ($('#lightbox').length > 0) {
+                        $('#lightbox-img').html('<img src="' + image_src + '" />');
+                        //show lightbox window - you can use a transition here if you want, i.e. .show('fast')
+                        $('#lightbox').show('fade');
+                }
+                else { //#lightbox does not exist
+                    //create HTML markup for lightbox window
+                    var lightbox =
+                    '<div id="lightbox">' +
+                        '<p>Click to close</p>' +
+                        '<div id="lightbox-img">' + //insert clicked link's href into img src
+                            '<img src="' + image_src +'" />' +
+                        '</div>' +
+                    '</div>';
+                    //insert lightbox HTML into page
+                    $('body').append(lightbox);
+                }
+                $('#lightbox').live('click', function() {
+                    $('#lightbox').hide();
+                }); 
+            }
+        });
     	var onload = function(e) {
     		var data = dataHandler.imagesToLoad[index];
     		console.log('here', data.imageSrc);
     		data.imageSrc.onload = function() {
+
     			console.log('onload');
     			console.log(data.username);
     			console.log(data.imageSrc);

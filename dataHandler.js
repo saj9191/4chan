@@ -142,6 +142,7 @@ var dataHandler = {
 		imageSrc.src = url;
 		imageSrc.width = post.thumbnailWidth;
 		imageSrc.height = post.thumbnailHeight;
+        imageSrc.className = "thread-image";
 
 		dataHandler.imagesToLoad.push(new this.imageData(usernameDiv, imageSrc));
 		var imageEvent = new CustomEvent('imageLoad', {});
