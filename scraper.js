@@ -28,9 +28,9 @@ var scraper = {
     onBoardClick: function(e) {
         scraper.removeThreadDiv();
         var board = $(e.target);
-        var boardNameNoSpaces = board.attr('id');
-        console.log("id = ", boardNameNoSpaces);
-        var boardName = boardHandler.boardNameMap[boardNameNoSpaces];
+        var boardName =  board.attr('name');
+        console.log("name = ", boardName);
+        // var boardName = boardHandler.boards[boardNameNoSpaces];
         boardHandler.changeBoardWithName(boardName);
     },
 
