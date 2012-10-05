@@ -21,7 +21,7 @@ body {
     color : white;
 }
 
-.recentThread:hover{
+.recentThread:hover, .sidebar-board:hover {
 	color: grey;
 	text-shadow: 0.05em 0.05em 0.05em white;
 }
