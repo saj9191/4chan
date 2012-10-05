@@ -3,7 +3,8 @@ var boardHandler = {
 
 	boards: {
 		'Music': 'mu',
-		'Video Games': 'v'
+		'Video Games': 'v',
+		'Random': 'b'
 	},
 
 	boardThreads: {
@@ -17,6 +18,12 @@ var boardHandler = {
 	        ignoredThreadIds : {},
 	        threadIds: {},
 	    },
+	    'b' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+
 	},
 
 	addThreadToSideBar: function(number) {
