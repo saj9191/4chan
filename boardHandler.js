@@ -6,6 +6,12 @@ var boardHandler = {
 		'Video Games': 'v'
 	},
 
+	boardNameMap: {
+		'Music': 'Music',
+		'VideoGames': 'Video Games',
+	},
+
+
 	boardThreads: {
 	    'mu' : {
 	        followedThreadIds : {},
@@ -39,9 +45,30 @@ var boardHandler = {
     	console.log('a', $('recentThreads'));
     },
 
-	changeBoard: function() {
+    addBoardToSidebar : function(boardname) {
+        var board = $('<div/>');
+        var noSpaces = boardname.replace(/\s+/g, '');
+        console.log("noSpaces", noSpaces);
+        board.html(boardname);
+        board.addClass('sidebar-board');
+        board.css('cursor', 'default');
+        board.attr('id', noSpaces);
+        $('#recentBoards').append(board);
+        board.click(scraper.onBoardClick);
+    },
+
+    changeBoard: function() {
 		var selected = $('select option:selected')[0].text;
-		var folder = boardHandler.getBoardFolder(selected);
+        boardHandler.changeBoardWithName(selected);
+    },
+
+	changeBoardWithName: function(name) {
+		var folder = boardHandler.getBoardFolder(name);
+        console.log("name = ", name);
+        var noSpaces = name.replace(/\s+/g, '');
+        if ($('#'+noSpaces).length == 0) {
+            boardHandler.addBoardToSidebar(name);
+        }
 		// Treat like no board selected
 		if (folder === undefined) {
 			return

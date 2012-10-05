@@ -79,6 +79,11 @@ body {
 	border-radius: 15px;
 }
 
+.sidebar-board {
+    margin-top : 3px;
+    margin-bottom : 3px;
+}
+
 .thread>.post {
 	border: solid #383127;
     border-width : 1px;
