@@ -1,3 +1,8 @@
+/* QuickChan - a project for 15-237, HW 4 */
+/* By 
+   Shannon Joyner (sjoyner)
+   Laxman Dhulipala (ldhulipa)
+*/
 var boardHandler = {
 	currentBoard: undefined,
 

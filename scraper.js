@@ -1,3 +1,9 @@
+/* QuickChan - a project for 15-237, HW 4 */
+/* By 
+   Shannon Joyner (sjoyner)
+   Laxman Dhulipala (ldhulipa)
+*/
+
 var globals = {
 // Contains presets and user-defined globals
     minPosts : 20
