@@ -18,29 +18,42 @@ var instructions = {
 		boardInstructions.attr('class', 'subInstructions');
 		var boardText = "Select a board from the 'All boards' drop down menu.";
 		boardInstructions.html(boardText);
-		var arrow = $('<div/>');
-		arrow.attr('class', 'arrow');
-		boardInstructions.append(arrow);
-		arrow.attr('marginLeft','auto');
-		arrow.attr('marginRight','auto');
-
 		instructions.append(boardInstructions);
 		content.prepend(instructions);
+		this.addArrows();
+		
+	},
+
+	addArrows: function() {
+		var instructions = $('#instructions');
+		var arrowLeft = $('<div/>');
+		arrowLeft.attr('class', 'arrow');
+		arrowLeft.attr('id', 'left');
+		instructions.append(arrowLeft);
+		
+		var arrowRight = $('<div/>');
+		arrowRight.attr('class', 'arrow');
+		arrowRight.attr('id', 'right');
+		instructions.append(arrowRight);
+	},
+
+	removeArrows: function() {
+		$('.arrow').remove();
 	},
 
 	showThreadInstructions: function() {
-		var arrow = $('.arrow');
+		this.removeArrows();
 		var instructions = $('#instructions');
 		threadInstructions = $('<div/>');
 		threadInstructions.attr('class', 'subInstructions');
 		var threadText = "Now select a thread from the 'Threads' section.";
 		threadInstructions.html(threadText);
 		instructions.append(threadInstructions);
-		threadInstructions.append(arrow);
+		this.addArrows();
 	},
 
 	hide: function() {
-		var warning = $('#warning');
-		warning.remove();
+		var instructions = $('#instructions');
+		instructions.remove();
 	}
 }
