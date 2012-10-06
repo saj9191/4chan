@@ -3,7 +3,8 @@ var boardHandler = {
 
 	boards: {
 		'Music': 'mu',
-		'Video Games': 'v'
+		'Video Games': 'v',
+		'Random': 'b'
 	},
 
 	boardNameMap: {
@@ -23,6 +24,12 @@ var boardHandler = {
 	        ignoredThreadIds : {},
 	        threadIds: {},
 	    },
+	    'b' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+
 	},
 
 	addThreadToSideBar: function(number) {
@@ -30,6 +37,7 @@ var boardHandler = {
         thread.html('Thread '+ number);
         thread.css('marginLeft', '10px');
         thread.attr('id', number);
+        thread.addClass('recentThread')
         thread.css('font-size', 'small');
         thread.css('padding-top', '10px');
         // Prevents cursor from changing when you
@@ -40,15 +48,12 @@ var boardHandler = {
     },
 
     removeThreadsFromSideBar: function() {
-    	console.log('b', document.getElementById('recentThreads'));
     	$('#recentThreads').empty();
-    	console.log('a', $('recentThreads'));
     },
 
     addBoardToSidebar : function(boardname) {
         var board = $('<div/>');
         var noSpaces = boardname.replace(/\s+/g, '');
-        console.log("noSpaces", noSpaces);
         board.html(boardname);
         board.addClass('sidebar-board');
         board.css('cursor', 'default');
@@ -64,7 +69,6 @@ var boardHandler = {
 
 	changeBoardWithName: function(name) {
 		var folder = boardHandler.getBoardFolder(name);
-        console.log("name = ", name);
         var noSpaces = name.replace(/\s+/g, '');
         if ($('#'+noSpaces).length == 0) {
             boardHandler.addBoardToSidebar(name);
