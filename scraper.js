@@ -49,11 +49,11 @@ var scraper = {
             if (response.posts.length > globals.minPosts) {
                 // Map the key -> response in followedThreadIds
                 scraper.followedThreadIds[number] = response;
-                delete scraper.threadIds[number];
                 // Render the thread
                 //dataHandler.addThread(response); 
                 boardHandler.addThreadToSideBar(number);
             }
+            delete scraper.threadIds[number];
         });
     },
 
