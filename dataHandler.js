@@ -59,13 +59,15 @@ var dataHandler = {
 		}
 		removeDiv = $('<div/>');
 		removeDiv.html('Remove thread');
-		removeDiv.addClass('remove');
+        removeDiv.addClass('remove');
+        removeDiv.addClass('button');
 		removeDiv.attr('id', 'r' + threadNumber);
 		removeDiv.css('cursor', 'default');
 		removeDiv.click(dataHandler.onRemoveClick);
 
         var buttonDiv = $('<div/>');
         buttonDiv.html('Refresh thread');
+        buttonDiv.addClass('refresh');
         buttonDiv.addClass('button');
         buttonDiv.attr('id', 'b' + threadNumber);
         buttonDiv.css('cursort', 'default');

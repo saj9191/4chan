@@ -9,6 +9,8 @@ body {
 }
 
 .sidebar {
+/*    filter: alpha(opacity=90);
+    opacity: .90; */
     position: fixed;
     float :left;
     background-color : #282827;
@@ -17,6 +19,20 @@ body {
     height: 100%;
     padding: 0px 0px 0px 30px;
     text-align: right;
+    left : 0;
+    top : 0;
+    color : white;
+}
+
+.sidebar-collapsed {
+    position: fixed;
+    float : left;
+    background-color : #282827;
+    width: 100px;
+    height: 30px;
+    display : none;
+    padding-top : 10px;
+    text-align : center;
     left : 0;
     top : 0;
     color : white;
@@ -129,6 +145,16 @@ body {
     max-width:940px;
 }
 
+/*.refresh {
+	clear: both;
+	position: absolute;
+	top: 5px;
+    left : 10px;
+    text-align : left;
+    padding-bottom : 20px;
+	margin-bottom: 20px;
+	font-size: small;
+}
 
 .remove {
 	clear: both;
@@ -137,6 +163,10 @@ body {
 	right: 10px;
 	margin-bottom: 20px;
 	font-size: small;
+} */
+
+.remove {
+    float : right;
 }
 
 .remove:hover {

@@ -152,6 +152,18 @@ var scraper = {
                 }); 
             }
         });
+
+        $('#bubblegirl').click(function(e) {
+            $('.sidebar').toggle('fast');
+            $('.sidebar-collapsed').toggle();
+           return false;
+        });
+        $('.sidebar-collapsed').click(function(e) {
+            $('.sidebar-collapsed').toggle();
+            $('.sidebar').toggle('fast');
+            return false;
+        });
+
     	var onload = function(e) {
     		var data = dataHandler.imagesToLoad[index];
     		console.log('here', data.imageSrc);
