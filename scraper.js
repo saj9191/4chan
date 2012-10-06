@@ -119,7 +119,7 @@ var scraper = {
                 if ($('#lightbox').length > 0) {
                         $('#lightbox-img').html('<img src="' + image_src + '" />');
                         //show lightbox window - you can use a transition here if you want, i.e. .show('fast')
-                        $('#lightbox').show('fade');
+                        $('#lightbox').show();
                 }
                 else { //#lightbox does not exist
                     //create HTML markup for lightbox window
@@ -132,9 +132,15 @@ var scraper = {
                     '</div>';
                     //insert lightbox HTML into page
                     $('body').append(lightbox);
+                    $('#full-page').click(function(e) {
+                        e.stopPropagation();
+                    });
+                    $('#content').css("overflow", "hidden");
                 }
                 $('#lightbox').live('click', function() {
                     $('#lightbox').hide();
+                    $('#full-page').unbind('click');
+                    $('#content').css("overflow", "scroll");
                 }); 
             }
         });

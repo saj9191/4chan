@@ -118,6 +118,7 @@ body {
     height:100%;
     background:url(../images/overlay.png) repeat;
     text-align:center;
+    overflow : auto;
 }
 
 #lightbox img {
@@ -150,8 +151,6 @@ body {
 .subject {
 	font-weight: bold;
 }
-
-
 
 .postNumber {
 	float: right;
