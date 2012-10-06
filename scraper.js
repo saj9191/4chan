@@ -148,12 +148,12 @@ var scraper = {
                     });
                     $('#content').css("overflow", "hidden");
                 }
-                $('#lightbox').live('click', function() {
-                    $('#lightbox').hide();
-                    $('#full-page').unbind('click');
-                    $('#content').css("overflow", "scroll");
-                }); 
             }
+            $('#lightbox').live('click', function() {
+                $('#lightbox').hide();
+                $('#full-page').unbind('click');
+                $('#content').css("overflow", "scroll");
+            }); 
         });
 
         $('#bubblegirl').click(function(e) {
