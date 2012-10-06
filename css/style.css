@@ -58,14 +58,8 @@ body {
 }
 
 #content {
-	position: relative;
-	left: 180px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	margin-left: auto;
-	margin-right: auto;
-	white-space: pre-wrap;
-	
 }
 
 .thread {
@@ -141,6 +135,12 @@ body {
 	font-size: small;
 }
 
+.thread-image:hover {
+	box-shadow:0 0 25px darkblue;
+	-webkit-box-shadow:0 0 25px darkblue;
+    -moz-box-shadow:0 0 25px darkblue;
+}
+
 .remove:hover {
 	color: grey;
 	text-shadow: 0.05em 0.05em 0.05em black;
@@ -181,8 +181,63 @@ img {
 	margin-top: 10px;
 }
 
-#warning {
+#instructions {
+	position: relative;
+	left: 180px;
 	text-align: center;
-	white-space: pre-wrap;
+	margin-left: auto;
+	margin-right: auto;
 }
+
+.subInstructions {
+	clear: both;
+	padding: 10px 10px 10px 10px;
+}
+
+@-moz-keyframes arrowLeftAnimation {
+	from {
+		left: 0px;
+	}
+	to {
+		left: -100px;
+	}
+}
+
+@-moz-keyframes arrowRightAnimation {
+	from {
+		left: 30px;
+	}
+	to {
+		left: -70px;
+	}
+}
+
+.arrow {
+	width: 0;
+	height: 0;
+	position: relative;
+	margin-left: 35%;
+	border-top: 30px solid transparent;
+	border-bottom: 30px solid transparent;
+	border-right: 30px solid grey;
+	padding: 0px 0px 0px 0px;
+}
+
+#left {
+	float:left;
+	-moz-animation-name: arrowLeftAnimation;
+	-moz-animation-duration: 2s;
+	-moz-animation-iteration-count: infinite;
+
+}
+#right {
+	-moz-animation-name: arrowRightAnimation;
+	-moz-animation-duration: 2s;
+	-moz-animation-iteration-count: infinite;
+}
+
+#myCanvas {
+
+}
+
 
