@@ -13,6 +13,20 @@ var dataHandler = {
 	    }
     },
 
+    onRefreshClick: function(e) {
+    	var removeDiv = $(e.target);
+    	var removeId = removeDiv.attr('id');
+    	var id = removeId.replace('b', '');
+        scraper.refreshThread(id);
+/*    	$('.sidebar #' + id).remove();
+    	scraper.removeThreadDiv();
+    	// Remove from following threads and
+    	// put into non-following threads
+    	scraper.ignoredThreadIds = scraper.followedThreadIds;
+    	delete scraper.followedThreadIds[id]; */
+    },
+
+
     onRemoveClick: function(e) {
     	var removeDiv = $(e.target);
     	var removeId = removeDiv.attr('id');
@@ -50,7 +64,15 @@ var dataHandler = {
 		removeDiv.css('cursor', 'default');
 		removeDiv.click(dataHandler.onRemoveClick);
 
+        var buttonDiv = $('<div/>');
+        buttonDiv.html('Refresh thread');
+        buttonDiv.addClass('button');
+        buttonDiv.attr('id', 'b' + threadNumber);
+        buttonDiv.css('cursort', 'default');
+        buttonDiv.click(dataHandler.onRefreshClick);
+
 		threadDiv.prepend(removeDiv);
+        threadDiv.prepend(buttonDiv);
 		$('#content').append(threadDiv);
 		this.reorderPosts();
 	},
