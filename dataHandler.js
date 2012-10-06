@@ -135,7 +135,6 @@ var dataHandler = {
     },
 
 	getImageSrc: function(post, usernameDiv) {
-		console.log('imageSrc');
 		var imageSrc = new Image();
 		var url = 'https://images.4chan.org/'+ boardHandler.currentBoard + '/src/' + 
 			post.timePlusNanoseconds + post.ext;

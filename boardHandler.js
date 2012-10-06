@@ -4,14 +4,9 @@ var boardHandler = {
 	boards: {
 		'Music': 'mu',
 		'Video Games': 'v',
-		'Random': 'b'
+		'Random': 'b',
+		'Technology': 'g',
 	},
-
-	boardNameMap: {
-		'Music': 'Music',
-		'VideoGames': 'Video Games',
-	},
-
 
 	boardThreads: {
 	    'mu' : {
@@ -78,12 +73,17 @@ var boardHandler = {
 			return
 		} else {
 			scraper.removeThreadDiv();
+			var boardName = $('#boardName');
+			boardName.html(name + ' Board');
+			boardName.css('text-align', 'center');
+			boardName.css('font-size', 'large');
 			boardHandler.removeThreadsFromSideBar();
 			boardHandler.currentBoard = folder;
 			scraper.followedThreadIds = boardHandler.boardThreads[folder].followedThreadIds;
 			scraper.ignoredThreadIds = boardHandler.boardThreads[folder].ignoredThreadIds;
 			scraper.threadIds = boardHandler.boardThreads[folder].threadIds;
 			scraper.getPage(1);
+			instructions.showThreadInstructions();
 		}
 	},
 
