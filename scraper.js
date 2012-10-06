@@ -18,7 +18,9 @@ var scraper = {
 	},	
 
 	onThreadClick: function(e) {
+        instructions.hide();
 		scraper.removeThreadDiv();
+        $("#warning").hide();
 		var thread = $(e.target);
 		var threadNumber = thread.attr('id');
 		var response = scraper.followedThreadIds[threadNumber];
@@ -108,6 +110,7 @@ var scraper = {
 
     onRun : function () {
     	var index = 0;
+        instructions.showBoardInstructions();
     	$('select').change(boardHandler.changeBoard);
         $('body').click(function(e) {
             if (e.target.className == "thread-image") {
