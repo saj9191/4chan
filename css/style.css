@@ -24,6 +24,10 @@ body {
     color : white;
 }
 
+.instructions {
+    display : none;
+}
+
 .sidebar-collapsed {
     position: fixed;
     float : left;
@@ -66,6 +70,7 @@ body {
 
 
 #header {
+    padding-left : 180px;
 	text-align: center;
 	font-size: xx-large;
 	margin-top: 10px;
@@ -74,14 +79,24 @@ body {
 	clear: both;
 }
 
+#boardName {
+    padding-left : 180px;
+}
+
 #content {
-    padding-left : 200px;
     float : right;
+    padding-left : 180px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	margin-right: auto;
+    margin-left : auto;
 	white-space: pre-wrap;
 }
+
+#content>.thread {
+    text-align : center;
+}
+
 
 .thread {
 	position: relative;
@@ -104,6 +119,7 @@ body {
 .thread>.post {
 	border: solid #383127;
     border-width : 1px;
+    clear : both;
 }
 
 
@@ -165,8 +181,16 @@ body {
 	font-size: small;
 } */
 
+.refresh {
+    position : relative;
+    float : left;
+    margin-bottom : 10px;
+}
+
 .remove {
+    position : relative;
     float : right;
+    margin-bottom : 10px;
 }
 
 .thread-image:hover {

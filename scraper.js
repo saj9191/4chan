@@ -1,3 +1,9 @@
+/* QuickChan - a project for 15-237, HW 4 */
+/* By 
+   Shannon Joyner (sjoyner)
+   Laxman Dhulipala (ldhulipa)
+*/
+
 var globals = {
 // Contains presets and user-defined globals
     minPosts : 20
@@ -147,22 +153,24 @@ var scraper = {
                     });
                     $('#content').css("overflow", "hidden");
                 }
-                $('#lightbox').live('click', function() {
-                    $('#lightbox').hide();
-                    $('#full-page').unbind('click');
-                    $('#content').css("overflow", "scroll");
-                }); 
             }
+            $('#lightbox').live('click', function() {
+                $('#lightbox').hide();
+                $('#full-page').unbind('click');
+                $('#content').css("overflow", "scroll");
+            }); 
         });
 
         $('#bubblegirl').click(function(e) {
             $('.sidebar').toggle('fast');
             $('.sidebar-collapsed').toggle();
+            $('.thread').css('width', '80%');
            return false;
         });
         $('.sidebar-collapsed').click(function(e) {
             $('.sidebar-collapsed').toggle();
             $('.sidebar').toggle('fast');
+            $('.thread').css('width', '66%');
             return false;
         });
 
