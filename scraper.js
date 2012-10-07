@@ -41,6 +41,17 @@ var scraper = {
     	console.log(content.find('.thread'));
     },
 
+    refreshThread: function(number) {
+        var url = "http://hkr.me:8001/?url=http://api.4chan.org/" +
+		boardHandler.currentBoard + "/res/" + number + ".json&jsonp=?";
+        $.getJSON(url, null, function(response) {
+            scraper.removeThreadDiv();
+            scraper.threadIds[number] = response;
+            scraper.followedThreadIds[number] = response;
+            dataHandler.addThread(response, number);
+        });
+    },
+
     getThread: function(number) {
         var url = "http://hkr.me:8001/?url=http://api.4chan.org/" +
 		boardHandler.currentBoard + "/res/" + number + ".json&jsonp=?";
@@ -120,11 +131,9 @@ var scraper = {
                 // Code that makes the lightbox appear
                 if ($('#lightbox').length > 0) {
                         $('#lightbox-img').html('<img src="' + image_src + '" />');
-                        //show lightbox window - you can use a transition here if you want, i.e. .show('fast')
                         $('#lightbox').show();
                 }
                 else { //#lightbox does not exist
-                    //create HTML markup for lightbox window
                     var lightbox =
                     '<div id="lightbox">' +
                         '<p>Click to close</p>' +
@@ -146,6 +155,18 @@ var scraper = {
                 }); 
             }
         });
+
+        $('#bubblegirl').click(function(e) {
+            $('.sidebar').toggle('fast');
+            $('.sidebar-collapsed').toggle();
+           return false;
+        });
+        $('.sidebar-collapsed').click(function(e) {
+            $('.sidebar-collapsed').toggle();
+            $('.sidebar').toggle('fast');
+            return false;
+        });
+
     	var onload = function(e) {
     		var data = dataHandler.imagesToLoad[index];
     		console.log('here', data.imageSrc);

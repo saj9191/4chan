@@ -1,26 +1,28 @@
 var PostHandler = (function() {
-	function postCategory(post) {
+	function PostDiv(post) {
 		this.post = post;
 	};
 
-	postCategory.prototype.makeSubDiv = function(postDiv, title, className) {
+	PostDiv.prototype.makeSubDiv = function(postDiv, title, className) {
 		var subPost = $('<div/>');
-		subPost.html(title + this.post);
+		subPost.html(title + ": " +  this.post);
 		subPost.addClass(className);
 		postDiv.append(subPost)
 	};
 
-	function image(post) {
-		PostHandler.postCategory.call(post);
+	function CommentDiv(post) {
+		PostDiv.call(this, post);
 	};
 
-	image.prototype = new postCategory();
-	image.prototype.constructor = postCategory;
-	image.prototype.makeSubDiv = function(postDiv, title, className) {
+	CommentDiv.prototype = new PostDiv();
+	CommentDiv.prototype.constructor = PostDiv;
+	CommentDiv.prototype.makeSubDiv = function(postDiv, title, className) {
 		var subPost = $('<div/>');
-		var imageSrc = dataHandler.getImageSrc(post, usernameDiv);
+		subPost.html(title + ":<br>" +  this.post);
+		subPost.addClass(className);
+		postDiv.append(subPost)
 	};
 
-	return { "postCategory": postCategory, "image": image };
+	return { "postDiv": PostDiv, "commentDiv": CommentDiv };
 })();
 

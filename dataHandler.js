@@ -13,6 +13,14 @@ var dataHandler = {
 	    }
     },
 
+    onRefreshClick: function(e) {
+    	var removeDiv = $(e.target);
+    	var removeId = removeDiv.attr('id');
+    	var id = removeId.replace('b', '');
+        scraper.refreshThread(id);
+    },
+
+
     onRemoveClick: function(e) {
     	var removeDiv = $(e.target);
     	var removeId = removeDiv.attr('id');
@@ -45,12 +53,22 @@ var dataHandler = {
 		}
 		removeDiv = $('<div/>');
 		removeDiv.html('Remove thread');
-		removeDiv.addClass('remove');
+        removeDiv.addClass('remove');
+        removeDiv.addClass('button');
 		removeDiv.attr('id', 'r' + threadNumber);
 		removeDiv.css('cursor', 'default');
 		removeDiv.click(dataHandler.onRemoveClick);
 
+        var buttonDiv = $('<div/>');
+        buttonDiv.html('Refresh thread');
+        buttonDiv.addClass('refresh');
+        buttonDiv.addClass('button');
+        buttonDiv.attr('id', 'b' + threadNumber);
+        buttonDiv.css('cursort', 'default');
+        buttonDiv.click(dataHandler.onRefreshClick);
+
 		threadDiv.prepend(removeDiv);
+        threadDiv.prepend(buttonDiv);
 		$('#content').append(threadDiv);
 		this.reorderPosts();
 	},
@@ -83,36 +101,27 @@ var dataHandler = {
 
 	formatPost: function(postDiv, post) {
 		if (post.postNumber != undefined) {
-			var postNumberDiv = $('<div/>');
-			postNumberDiv.html('Post Number: ' + post.postNumber);
-			postNumberDiv.addClass('postNumber');
-			postDiv.append(postNumberDiv);
+			var postNumberDiv = new PostHandler.postDiv(post.postNumber);
+			postNumberDiv.makeSubDiv(postDiv, 'Post Number', 'postNumber');
 		}
 		
 		if (post.subject != undefined) {
-			var subjectDiv = $('<div/>');
-			subjectDiv.html('Subject: ' + post.subject);
-			subjectDiv.addClass('subject');
-			postDiv.append(subjectDiv);
+			var subjectDiv = new PostHandler.postDiv(post.subject);
+			subjectDiv.makeSubDiv(postDiv, 'Subject', 'subject');
 		}
 		
 		if (post.username != undefined) {
-			var usernameDiv = $('<div/>');
-			usernameDiv.html('Username: ' + post.username);
-			usernameDiv.addClass('username');
-			postDiv.append(usernameDiv);
+			var usernameDiv = new PostHandler.postDiv(post.username);
+			usernameDiv.makeSubDiv(postDiv, 'Username', 'username');
 		}
 		if (post.timePlusNanoseconds != undefined) {
 			var tempDiv = $('<div/>');
-			var imageSrc = dataHandler.getImageSrc(post, usernameDiv);
-			//postDiv.append(imageSrc);
+			var imageSrc = dataHandler.getImageSrc(post, postDiv.find('.username'));
 		}
 
 		if (post.comment != undefined) {
-			var commentDiv = $('<div/>');
-			commentDiv.html('Comment:<br>' + post.comment);
-			commentDiv.addClass('comment');
-			postDiv.append(commentDiv);
+			var commentDiv = new PostHandler.commentDiv(post.comment);
+			commentDiv.makeSubDiv(postDiv, 'Comment', 'comment');
 		}
 	},
     
