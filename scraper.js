@@ -38,7 +38,6 @@ var scraper = {
 	removeThreadDiv: function() {
     	var content = $('#content');
     	$('#content .thread').remove();
-    	console.log(content.find('.thread'));
     },
 
     refreshThread: function(number) {
