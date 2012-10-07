@@ -9,8 +9,14 @@ var boardHandler = {
 	boards: {
 		'Music': 'mu',
 		'Video Games': 'v',
-		'Random': 'b',
 		'Technology': 'g',
+        'Cooking': 'ck',
+        'Television' : 'tv',
+        'Fitness' : 'fit',
+        'Sports' : 'sp',
+        'Fashion' : 'fa',
+        'Science' : 'sci',
+        'Random' : 'b',
 	},
 
 	boardThreads: {
@@ -29,7 +35,41 @@ var boardHandler = {
 	        ignoredThreadIds : {},
 	        threadIds: {},
 	    },
-
+	    'g' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+	    'ck' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+	    'tv' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+	    'fit' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+	    'sp' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+	    'fa' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
+	    'sci' : {
+	        followedThreadIds : {},
+	        ignoredThreadIds : {},
+	        threadIds: {},
+	    },
 	},
 
 	addThreadToSideBar: function(number) {
