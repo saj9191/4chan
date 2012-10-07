@@ -165,11 +165,13 @@ var scraper = {
         $('#bubblegirl').click(function(e) {
             $('.sidebar').toggle('fast');
             $('.sidebar-collapsed').toggle();
+            $('.thread').css('width', '80%');
            return false;
         });
         $('.sidebar-collapsed').click(function(e) {
             $('.sidebar-collapsed').toggle();
             $('.sidebar').toggle('fast');
+            $('.thread').css('width', '66%');
             return false;
         });
 

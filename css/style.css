@@ -70,6 +70,7 @@ body {
 
 
 #header {
+    padding-left : 180px;
 	text-align: center;
 	font-size: xx-large;
 	margin-top: 10px;
@@ -78,12 +79,17 @@ body {
 	clear: both;
 }
 
+#boardName {
+    padding-left : 180px;
+}
+
 #content {
-    padding-left : 200px;
     float : right;
+    padding-left : 180px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	margin-right: auto;
+    margin-left : auto;
 	white-space: pre-wrap;
 }
 
