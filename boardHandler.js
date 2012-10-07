@@ -128,7 +128,9 @@ var boardHandler = {
 			scraper.ignoredThreadIds = boardHandler.boardThreads[folder].ignoredThreadIds;
 			scraper.threadIds = boardHandler.boardThreads[folder].threadIds;
 			scraper.getPage(1);
-			instructions.showThreadInstructions();
+			if (window.showThreadInstructions === false) {
+				window.showThreadInstructions = true;
+			}
 		}
 	},
 

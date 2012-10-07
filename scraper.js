@@ -24,7 +24,9 @@ var scraper = {
 	},	
 
 	onThreadClick: function(e) {
-        instructions.hide();
+        if (window.showInstructions === true) {
+            window.showInstructions = false;
+        }
 		scraper.removeThreadDiv();
         $("#warning").hide();
 		var thread = $(e.target);
@@ -62,7 +64,7 @@ var scraper = {
 		boardHandler.currentBoard + "/res/" + number + ".json&jsonp=?";
 		$.getJSON(url, null, function(response) {
             scraper.threadIds[number] = response;
-            if (response.posts.length > globals.minPosts) {
+            if (response != undefined && response.posts.length > globals.minPosts) {
                 // Map the key -> response in followedThreadIds
                 scraper.followedThreadIds[number] = response;
                 // Render the thread
@@ -126,11 +128,9 @@ var scraper = {
 
     onRun : function () {
     	var index = 0;
-        instructions.showBoardInstructions();
     	$('select').change(boardHandler.changeBoard);
         $('body').click(function(e) {
             if (e.target.className == "thread-image") {
-                console.log("thread image clicked");
                 e.preventDefault();
                 var image_src = $(e.target).attr("src");
                 // Code that makes the lightbox appear
@@ -176,18 +176,12 @@ var scraper = {
 
     	var onload = function(e) {
     		var data = dataHandler.imagesToLoad[index];
-    		console.log('here', data.imageSrc);
     		data.imageSrc.onload = function() {
-
-    			console.log('onload');
-    			console.log(data.username);
-    			console.log(data.imageSrc);
 	    		$(data.username).after(data.imageSrc);
 	    	}
     		index++;
     	}
     	document.addEventListener('imageLoad', onload);
-//        setTimeout(scraper.onTimer, scraper.timeDelay);
     },
 
 	onTimer: function() {
